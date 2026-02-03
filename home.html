@@ -1,0 +1,4142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Buffer Zone | Digital & Technical Services</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ============================================
+           ROOT VARIABLES - MAC OS REFINED THEME WITH ENHANCED TRANSITIONS
+        ============================================ */
+        :root {
+            /* Apple-inspired grey palette - refined */
+            --apple-grey-1: #f5f5f7;
+            --apple-grey-2: #e8e8ed;
+            --apple-grey-3: #d2d2d7;
+            --apple-grey-4: #86868b;
+            --apple-grey-5: #515154;
+            --apple-grey-6: #1d1d1f;
+            --apple-grey-7: #000000;
+            
+            /* Accent colors */
+            --accent-blue: #007aff;
+            --accent-purple: #5856d6;
+            --accent-green: #34c759;
+            --accent-orange: #ff9500;
+            --accent-red: #ff3b30;
+            
+            /* UI Colors */
+            --background-primary: #ffffff;
+            --background-secondary: #f5f5f7;
+            --background-tertiary: #e8e8ed;
+            --text-primary: #1d1d1f;
+            --text-secondary: #515154;
+            --text-tertiary: #86868b;
+            --border-color: #d2d2d7;
+            --border-light: #f0f0f5;
+            
+            /* Shadows - Mac OS refined */
+            --shadow-subtle: 0 1px 10px rgba(0, 0, 0, 0.04);
+            --shadow-medium: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-elevated: 0 8px 30px rgba(0, 0, 0, 0.12);
+            --shadow-deep: 0 12px 40px rgba(0, 0, 0, 0.16);
+            --shadow-modal: 0 25px 60px rgba(0, 0, 0, 0.18);
+            
+            /* Border radius - Mac OS style */
+            --radius-small: 8px;
+            --radius-medium: 12px;
+            --radius-large: 16px;
+            --radius-extra-large: 20px;
+            --radius-circle: 50%;
+            
+            /* Spacing - Compact Mac layout */
+            --space-xs: 4px;
+            --space-sm: 8px;
+            --space-md: 16px;
+            --space-lg: 24px;
+            --space-xl: 32px;
+            --space-xxl: 48px;
+            --space-xxxl: 64px;
+            --space-huge: 80px;
+            
+            /* Enhanced Transitions - Smooth Mac animations */
+            --transition-fast: 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-medium: 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-slow: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --transition-bounce: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            --transition-elastic: 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            
+            /* Typography - Smaller fonts */
+            --font-size-xs: 11px;
+            --font-size-sm: 13px;
+            --font-size-base: 15px;
+            --font-size-md: 17px;
+            --font-size-lg: 19px;
+            --font-size-xl: 24px;
+            --font-size-xxl: 32px;
+            --font-size-xxxl: 40px;
+            --font-size-huge: 56px;
+            
+            /* Navigation */
+            --nav-height: 60px;
+            --nav-padding: 12px;
+            
+            /* New variables for enhanced effects */
+            --glass-opacity: 0.85;
+            --glass-blur: 20px;
+            --float-distance: 12px;
+            --scale-factor: 1.03;
+            --perspective-depth: 1000px;
+        }
+
+        /* ============================================
+           BASE STYLES WITH ENHANCEMENTS
+        ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--nav-height);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
+        }
+
+        body {
+            background-color: var(--background-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.5;
+            font-weight: 400;
+            font-size: var(--font-size-base);
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--space-lg);
+            position: relative;
+        }
+
+        /* ============================================
+           ENHANCED LOADING SCREEN WITH MAC OS EFFECTS
+        ============================================ */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--background-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity var(--transition-slow) var(--transition-bounce), visibility var(--transition-slow);
+            backdrop-filter: blur(10px);
+        }
+
+        .loading-screen.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loading-logo {
+            width: 160px;
+            height: 160px;
+            margin-bottom: var(--space-xl);
+            animation: float 3s ease-in-out infinite, pulse 2s ease-in-out infinite alternate;
+            filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.05));
+            position: relative;
+            perspective: var(--perspective-depth);
+        }
+
+        .loading-logo::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at center, rgba(0, 122, 255, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: ripple 2s ease-in-out infinite;
+        }
+
+        .loading-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            transform-style: preserve-3d;
+            animation: rotate3d 20s linear infinite paused;
+            transition: transform var(--transition-slow);
+        }
+
+        .loading-logo:hover img {
+            animation-play-state: running;
+        }
+
+        .loading-text {
+            font-size: var(--font-size-xl);
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: var(--space-lg);
+            letter-spacing: -0.3px;
+            animation: textGlow 2s ease-in-out infinite alternate;
+            position: relative;
+        }
+
+        .loading-text::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transform: translateX(-50%);
+            animation: expand 2s ease-in-out infinite;
+        }
+
+        .loading-bar {
+            width: 200px;
+            height: 3px;
+            background-color: var(--apple-grey-2);
+            border-radius: var(--radius-small);
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .loading-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            animation: loading 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+            border-radius: var(--radius-small);
+            transition: width var(--transition-medium);
+            box-shadow: 0 0 10px rgba(0, 122, 255, 0.3);
+        }
+
+        @keyframes loading {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-12px) rotate(1deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.05)); }
+            100% { transform: scale(1.05); filter: drop-shadow(0 12px 25px rgba(0, 0, 0, 0.1)); }
+        }
+
+        @keyframes textGlow {
+            0% { opacity: 0.7; text-shadow: 0 0 5px rgba(0, 122, 255, 0.1); }
+            100% { opacity: 1; text-shadow: 0 0 10px rgba(0, 122, 255, 0.2); }
+        }
+
+        @keyframes expand {
+            0%, 100% { width: 0; }
+            50% { width: 100px; }
+        }
+
+        @keyframes ripple {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+        }
+
+        @keyframes rotate3d {
+            0% { transform: rotateY(0deg) rotateX(0deg); }
+            25% { transform: rotateY(90deg) rotateX(10deg); }
+            50% { transform: rotateY(180deg) rotateX(0deg); }
+            75% { transform: rotateY(270deg) rotateX(-10deg); }
+            100% { transform: rotateY(360deg) rotateX(0deg); }
+        }
+
+        /* ============================================
+           ENHANCED MAC-STYLE NAVIGATION - WITH GLASS EFFECT
+        ============================================ */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: var(--nav-height);
+            background-color: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: saturate(180%) blur(var(--glass-blur));
+            -webkit-backdrop-filter: saturate(180%) blur(var(--glass-blur));
+            z-index: 1000;
+            padding: 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            transition: all var(--transition-medium) var(--transition-bounce);
+            display: flex;
+            align-items: center;
+            transform: translateZ(0);
+            will-change: transform, backdrop-filter;
+        }
+
+        nav.scrolled {
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: var(--shadow-subtle);
+            height: calc(var(--nav-height) - 5px);
+            transform: translateY(-2px);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            padding: 0 var(--space-lg);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            text-decoration: none;
+            transition: transform var(--transition-fast) var(--transition-elastic);
+            perspective: var(--perspective-depth);
+        }
+
+        .logo:hover {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .logo-img {
+            height: 32px;
+            width: auto;
+            transition: transform var(--transition-fast) var(--transition-bounce);
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+        }
+
+        .logo:hover .logo-img {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: var(--font-size-lg);
+            color: var(--text-primary);
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--apple-grey-5) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            transition: all var(--transition-medium);
+        }
+
+        .logo:hover .logo-text {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, var(--accent-purple) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: var(--space-sm);
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            padding: var(--space-xs) var(--space-sm);
+            border-radius: var(--radius-medium);
+            transition: all var(--transition-fast) var(--transition-bounce);
+            position: relative;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 122, 255, 0.1), transparent);
+            transition: left var(--transition-medium);
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+            background-color: rgba(0, 0, 0, 0.04);
+            transform: translateY(-1px) scale(1.05);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .nav-links a.active {
+            color: var(--accent-blue);
+            background-color: rgba(0, 122, 255, 0.08);
+            transform: translateY(-1px);
+            box-shadow: 0 2px 8px rgba(0, 122, 255, 0.1);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transition: all var(--transition-medium) var(--transition-bounce);
+            transform: translateX(-50%);
+            border-radius: 1px;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 60%;
+            box-shadow: 0 0 8px rgba(0, 122, 255, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-medium);
+            background-color: var(--background-tertiary);
+            color: var(--text-primary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all var(--transition-fast) var(--transition-elastic);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mobile-menu-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width var(--transition-medium), height var(--transition-medium);
+        }
+
+        .mobile-menu-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .mobile-menu-btn:hover {
+            background-color: var(--border-color);
+            transform: scale(1.05) rotate(90deg);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .mobile-menu-btn.active i {
+            transform: rotate(90deg);
+        }
+
+        .quote-button {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: var(--radius-medium);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-medium) var(--transition-elastic);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-left: var(--space-md);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 122, 255, 0.2);
+        }
+
+        .quote-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left var(--transition-medium);
+        }
+
+        .quote-button:hover::before {
+            left: 100%;
+        }
+
+        .quote-button:hover {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
+        }
+
+        /* ============================================
+           ENHANCED HERO SECTION - Mac Glass Effect
+        ============================================ */
+        .hero {
+            padding-top: calc(var(--nav-height) + var(--space-xxxl));
+            padding-bottom: var(--space-huge);
+            min-height: 100vh;
+            background-color: var(--background-primary);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 122, 255, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(88, 86, 214, 0.03) 0%, transparent 20%);
+            perspective: var(--perspective-depth);
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                linear-gradient(45deg, transparent 65%, rgba(0, 122, 255, 0.03) 65%, transparent 70%),
+                linear-gradient(-45deg, transparent 65%, rgba(88, 86, 214, 0.03) 65%, transparent 70%);
+            pointer-events: none;
+            animation: gridMove 20s linear infinite;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xxl);
+            align-items: center;
+            position: relative;
+            z-index: 1;
+            transform-style: preserve-3d;
+        }
+
+        .hero-text {
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both, fadeIn 1s ease-out;
+        }
+
+        .hero-text h1 {
+            font-size: var(--font-size-xxxl);
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: var(--space-lg);
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--apple-grey-5) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.8px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            position: relative;
+            display: inline-block;
+        }
+
+        .hero-text h1::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            border-radius: var(--radius-small);
+            animation: underlineExpand 1s ease-out 0.5s both;
+        }
+
+        .hero-text .tagline {
+            font-size: var(--font-size-lg);
+            color: var(--text-secondary);
+            margin-bottom: var(--space-xl);
+            font-weight: 400;
+            line-height: 1.5;
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+            transform-style: preserve-3d;
+        }
+
+        .hero-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both, float 6s ease-in-out infinite;
+            perspective: var(--perspective-depth);
+            transform-style: preserve-3d;
+        }
+
+        .hero-logo-img {
+            max-width: 90%;
+            height: auto;
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.08));
+            transition: transform var(--transition-slow) var(--transition-elastic);
+            transform-style: preserve-3d;
+        }
+
+        .hero-logo-img:hover {
+            transform: scale(var(--scale-factor)) rotate3d(1, 1, 0, 10deg);
+            filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.12));
+        }
+
+        .payment-notice {
+            background-color: rgba(245, 245, 247, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-large);
+            padding: var(--space-lg);
+            margin-top: var(--space-xl);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            box-shadow: var(--shadow-subtle);
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both;
+            transition: all var(--transition-medium) var(--transition-elastic);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .payment-notice::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transform: translateX(-100%);
+            transition: transform var(--transition-medium);
+        }
+
+        .payment-notice:hover::before {
+            transform: translateX(0);
+        }
+
+        .payment-notice:hover {
+            transform: translateY(-4px) translateZ(10px);
+            box-shadow: var(--shadow-medium);
+            border-color: rgba(0, 122, 255, 0.3);
+        }
+
+        .payment-notice h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            transition: transform var(--transition-fast);
+        }
+
+        .payment-notice:hover h4 {
+            transform: translateX(5px);
+        }
+
+        .payment-notice h4 i {
+            color: var(--accent-blue);
+            transition: transform var(--transition-fast) var(--transition-bounce);
+        }
+
+        .payment-notice:hover h4 i {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .payment-notice p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: var(--font-size-base);
+            transition: transform var(--transition-fast);
+        }
+
+        .payment-notice:hover p {
+            transform: translateX(5px);
+        }
+
+        @keyframes gridMove {
+            0% { transform: translateY(0) translateX(0); }
+            100% { transform: translateY(100px) translateX(100px); }
+        }
+
+        @keyframes underlineExpand {
+            0% { width: 0; opacity: 0; }
+            100% { width: 60px; opacity: 1; }
+        }
+
+        /* ============================================
+           ENHANCED SECTION STYLES - Mac Glass Effects
+        ============================================ */
+        section {
+            padding: var(--space-huge) 0;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .section-bg-white {
+            background-color: var(--background-primary);
+        }
+
+        .section-bg-light {
+            background-color: var(--background-secondary);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xxl);
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            perspective: var(--perspective-depth);
+            transform-style: preserve-3d;
+        }
+
+        .section-title {
+            font-size: var(--font-size-xxl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            width: 40px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transform: translateX(-50%);
+            border-radius: var(--radius-small);
+            transition: width var(--transition-medium) var(--transition-bounce);
+        }
+
+        .section-header:hover .section-title::after {
+            width: 100px;
+        }
+
+        .section-bg-white .section-title {
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--apple-grey-5) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-bg-light .section-title {
+            color: var(--text-primary);
+        }
+
+        .section-subtitle {
+            font-size: var(--font-size-lg);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            transform-style: preserve-3d;
+        }
+
+        /* ============================================
+           ENHANCED SERVICES SECTIONS - Glass Morphism
+        ============================================ */
+        .services-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: var(--space-xxl);
+        }
+
+        .service-card {
+            background-color: rgba(245, 245, 247, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-extra-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-medium);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0, 122, 255, 0.05), rgba(88, 86, 214, 0.05));
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+            z-index: -1;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px) translateZ(20px);
+            box-shadow: var(--shadow-elevated);
+            border-color: rgba(0, 122, 255, 0.3);
+        }
+
+        .service-card-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 480px;
+        }
+
+        .service-content {
+            padding: var(--space-xl);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transform-style: preserve-3d;
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-medium);
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: var(--space-lg);
+            color: white;
+            font-size: 20px;
+            box-shadow: 0 6px 15px rgba(0, 122, 255, 0.15);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            transform-style: preserve-3d;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.15) rotate(10deg) translateZ(20px);
+            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.25);
+        }
+
+        .service-title {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            margin-bottom: var(--space-md);
+            line-height: 1.2;
+            color: var(--text-primary);
+            transition: transform var(--transition-medium);
+            transform-style: preserve-3d;
+        }
+
+        .service-card:hover .service-title {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .service-description {
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            margin-bottom: var(--space-lg);
+            transition: transform var(--transition-medium);
+        }
+
+        .service-card:hover .service-description {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .service-features {
+            list-style: none;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-sm);
+            margin-bottom: var(--space-lg);
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-sm);
+            background-color: var(--background-primary);
+            border-radius: var(--radius-medium);
+            color: var(--text-primary);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            transition: all var(--transition-medium) var(--transition-elastic);
+            border: 1px solid transparent;
+            transform-style: preserve-3d;
+        }
+
+        .service-features li:hover {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            transform: translateX(6px) translateZ(10px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+        }
+
+        .service-features li i {
+            color: var(--accent-blue);
+            font-size: 12px;
+            transition: all var(--transition-medium) var(--transition-elastic);
+        }
+
+        .service-features li:hover i {
+            color: white;
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .service-explanation {
+            background-color: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-large);
+            padding: var(--space-lg);
+            margin-top: var(--space-md);
+            border-left: 3px solid var(--accent-blue);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            transform-style: preserve-3d;
+        }
+
+        .service-explanation:hover {
+            transform: translateX(6px) translateZ(10px);
+            box-shadow: var(--shadow-subtle);
+            border-left-width: 5px;
+        }
+
+        .service-explanation h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            transition: transform var(--transition-medium);
+        }
+
+        .service-explanation:hover h4 {
+            transform: translateX(5px);
+        }
+
+        .service-explanation p {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            transition: transform var(--transition-medium);
+        }
+
+        .service-explanation:hover p {
+            transform: translateX(5px);
+        }
+
+        /* ============================================
+           ENHANCED SERVICE MEDIA - Optimized for Mobile Portrait
+        ============================================ */
+        .service-media {
+            position: relative;
+            overflow: hidden;
+            background-color: var(--apple-grey-6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 480px;
+            perspective: var(--perspective-depth);
+        }
+
+        .service-media img,
+        .service-media video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow) var(--transition-elastic);
+            transform-origin: center center;
+            backface-visibility: hidden;
+        }
+
+        .service-card:hover .service-media img,
+        .service-card:hover .service-media video {
+            transform: scale(1.08) rotate(1deg);
+        }
+
+        .media-label {
+            position: absolute;
+            top: var(--space-md);
+            right: var(--space-md);
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-medium);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            z-index: 2;
+            transition: all var(--transition-medium);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transform: translateZ(20px);
+        }
+
+        .service-card:hover .media-label {
+            transform: translateZ(30px) scale(1.1);
+            background-color: rgba(0, 122, 255, 0.9);
+        }
+
+        /* ============================================
+           ENHANCED FOUNDER SECTION - 3D Effects
+        ============================================ */
+        .founder-section {
+            padding: var(--space-huge) 0;
+            background: linear-gradient(135deg, var(--background-secondary) 0%, var(--background-primary) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .founder-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(0, 122, 255, 0.05) 0%, transparent 70%);
+            transform: rotate(45deg);
+            animation: rotateBg 30s linear infinite;
+        }
+
+        .founder-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xxl);
+            align-items: center;
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            position: relative;
+            z-index: 1;
+            transform-style: preserve-3d;
+        }
+
+        .founder-media {
+            position: relative;
+            border-radius: var(--radius-extra-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-elevated);
+            transform-style: preserve-3d;
+            perspective: var(--perspective-depth);
+            transition: transform var(--transition-medium);
+        }
+
+        .founder-media:hover {
+            transform: translateZ(20px);
+        }
+
+        .founder-media img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform var(--transition-slow) var(--transition-elastic);
+            transform: translateZ(0);
+        }
+
+        .founder-media:hover img {
+            transform: scale(1.08) translateZ(20px);
+        }
+
+        .founder-content {
+            padding: var(--space-xl);
+            background-color: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-large);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            transform-style: preserve-3d;
+        }
+
+        .founder-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            padding: 4px 12px;
+            border-radius: var(--radius-medium);
+            font-size: var(--font-size-xs);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.2);
+            transition: all var(--transition-medium);
+            transform-style: preserve-3d;
+        }
+
+        .founder-content:hover .founder-badge {
+            transform: translateZ(10px) scale(1.05);
+            box-shadow: 0 6px 18px rgba(0, 122, 255, 0.3);
+        }
+
+        .founder-title {
+            font-size: var(--font-size-xxl);
+            font-weight: 700;
+            margin-bottom: var(--space-sm);
+            line-height: 1.2;
+            color: var(--text-primary);
+            transition: transform var(--transition-medium);
+        }
+
+        .founder-content:hover .founder-title {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .founder-name {
+            color: var(--accent-blue);
+            font-weight: 600;
+            margin-bottom: var(--space-lg);
+            font-size: var(--font-size-lg);
+            transition: transform var(--transition-medium);
+        }
+
+        .founder-content:hover .founder-name {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .founder-description {
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            margin-bottom: var(--space-lg);
+            transition: transform var(--transition-medium);
+        }
+
+        .founder-content:hover .founder-description {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .founder-quote {
+            background-color: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-large);
+            padding: var(--space-lg);
+            border-left: 3px solid var(--accent-green);
+            font-style: italic;
+            color: var(--text-secondary);
+            margin-top: var(--space-xl);
+            position: relative;
+            overflow: hidden;
+            transition: all var(--transition-medium);
+            transform-style: preserve-3d;
+        }
+
+        .founder-quote::before {
+            content: '"';
+            position: absolute;
+            top: -20px;
+            left: 10px;
+            font-size: 60px;
+            color: var(--accent-green);
+            opacity: 0.1;
+            font-family: serif;
+            transition: all var(--transition-medium);
+        }
+
+        .founder-quote:hover::before {
+            transform: scale(1.2) rotate(-5deg);
+            opacity: 0.15;
+        }
+
+        .founder-quote:hover {
+            transform: translateX(5px) translateZ(10px);
+            border-left-width: 5px;
+            box-shadow: var(--shadow-subtle);
+        }
+
+        @keyframes rotateBg {
+            0% { transform: rotate(45deg); }
+            100% { transform: rotate(405deg); }
+        }
+
+        /* ============================================
+           ENHANCED PORTFOLIO SECTION - Parallax Grid
+        ============================================ */
+        .portfolio-section {
+            background-color: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-extra-large);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-subtle);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            transform-style: preserve-3d;
+        }
+
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xxl);
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            background-color: rgba(232, 232, 237, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border: none;
+            border-radius: var(--radius-medium);
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-medium) var(--transition-elastic);
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .filter-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(0, 122, 255, 0.1) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width var(--transition-medium), height var(--transition-medium);
+        }
+
+        .filter-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .filter-btn:hover {
+            background-color: rgba(210, 210, 215, 0.8);
+            transform: translateY(-3px) translateZ(10px);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            transform: translateY(-4px) translateZ(20px);
+            box-shadow: 0 4px 20px rgba(0, 122, 255, 0.25);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xxl);
+        }
+
+        .portfolio-item {
+            background-color: rgba(245, 245, 247, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-subtle);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            transform-style: preserve-3d;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-8px) translateZ(20px);
+            box-shadow: var(--shadow-elevated);
+            border-color: rgba(0, 122, 255, 0.3);
+        }
+
+        .portfolio-media {
+            height: 220px;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--apple-grey-6);
+            perspective: var(--perspective-depth);
+        }
+
+        .portfolio-media img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-slow) var(--transition-elastic);
+            transform-origin: center center;
+        }
+
+        .portfolio-item:hover .portfolio-media img {
+            transform: scale(1.1) rotate(1deg);
+        }
+
+        /* Developer app screenshots without frames - PORTRAIT OPTIMIZED */
+        .portfolio-item[data-category="developer"] .portfolio-media {
+            height: 400px;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-md);
+        }
+
+        .portfolio-item[data-category="developer"] .portfolio-media img {
+            width: auto;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--radius-small);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-width: 100%;
+            max-height: 100%;
+        }
+
+        .portfolio-info {
+            padding: var(--space-lg);
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(var(--glass-blur));
+            transform-style: preserve-3d;
+        }
+
+        .portfolio-info h3 {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+            transition: transform var(--transition-medium);
+        }
+
+        .portfolio-item:hover .portfolio-info h3 {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .portfolio-info p {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            line-height: 1.5;
+            transition: transform var(--transition-medium);
+        }
+
+        .portfolio-item:hover .portfolio-info p {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .portfolio-category {
+            display: inline-block;
+            background-color: rgba(232, 232, 237, 0.8);
+            color: var(--text-secondary);
+            padding: 2px 8px;
+            border-radius: var(--radius-small);
+            font-size: var(--font-size-xs);
+            font-weight: 500;
+            margin-top: var(--space-sm);
+            transition: all var(--transition-medium);
+        }
+
+        .portfolio-item:hover .portfolio-category {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            color: white;
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        /* ============================================
+           ENHANCED ABOUT SECTION - 3D Logo Effects
+        ============================================ */
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xxl);
+            align-items: center;
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            transform-style: preserve-3d;
+        }
+
+        .about-media {
+            position: relative;
+            border-radius: var(--radius-extra-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-elevated);
+            background-color: var(--background-secondary);
+            padding: var(--space-xl);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 400px;
+            perspective: var(--perspective-depth);
+            transform-style: preserve-3d;
+        }
+
+        .about-media::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(0, 122, 255, 0.1), rgba(88, 86, 214, 0.1));
+            opacity: 0;
+            transition: opacity var(--transition-medium);
+        }
+
+        .about-media:hover::before {
+            opacity: 1;
+        }
+
+        .about-media img {
+            width: 80%;
+            height: auto;
+            display: block;
+            transition: transform var(--transition-slow) var(--transition-elastic);
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.1));
+            transform: translateZ(0);
+        }
+
+        .about-media:hover img {
+            transform: scale(1.08) rotate(5deg) translateZ(20px);
+            filter: drop-shadow(0 15px 30px rgba(0, 0, 0, 0.15));
+        }
+
+        .about-content {
+            background-color: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            padding: var(--space-xl);
+            border-radius: var(--radius-large);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            transform-style: preserve-3d;
+        }
+
+        .about-content h2 {
+            font-size: var(--font-size-xxl);
+            font-weight: 700;
+            margin-bottom: var(--space-lg);
+            line-height: 1.2;
+            color: var(--text-primary);
+            transition: transform var(--transition-medium);
+        }
+
+        .about-content:hover h2 {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: var(--space-md);
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            transition: transform var(--transition-medium);
+        }
+
+        .about-content:hover p {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .reliability-badge {
+            background-color: rgba(245, 245, 247, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-large);
+            padding: var(--space-lg);
+            margin-top: var(--space-xl);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            box-shadow: var(--shadow-subtle);
+            border-left: 3px solid var(--accent-green);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            transform-style: preserve-3d;
+        }
+
+        .reliability-badge:hover {
+            transform: translateY(-4px) translateZ(20px);
+            box-shadow: var(--shadow-medium);
+            border-left-width: 5px;
+        }
+
+        .reliability-badge h3 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            transition: transform var(--transition-medium);
+        }
+
+        .reliability-badge:hover h3 {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .reliability-badge h3 i {
+            color: var(--accent-green);
+            transition: transform var(--transition-medium) var(--transition-bounce);
+        }
+
+        .reliability-badge:hover h3 i {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .reliability-badge p {
+            color: var(--text-secondary);
+            margin-bottom: 0;
+            font-size: var(--font-size-base);
+            transition: transform var(--transition-medium);
+        }
+
+        .reliability-badge:hover p {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        /* ============================================
+           ENHANCED MODAL POPUP FORM - Mac Glass Effect
+        ============================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(20px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-lg);
+            animation: fadeIn 0.3s ease var(--transition-elastic);
+            transform-style: preserve-3d;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background-color: rgba(255, 255, 255, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-extra-large);
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-modal);
+            animation: modalSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--transition-elastic);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            transform-style: preserve-3d;
+            transform: translateZ(0);
+        }
+
+        .modal-header {
+            padding: var(--space-lg) var(--space-xl);
+            border-bottom: 1px solid rgba(210, 210, 215, 0.5);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(245, 245, 247, 0.8);
+            border-radius: var(--radius-extra-large) var(--radius-extra-large) 0 0;
+        }
+
+        .modal-header h3 {
+            font-size: var(--font-size-xl);
+            font-weight: 700;
+            color: var(--text-primary);
+            transition: transform var(--transition-medium);
+        }
+
+        .modal-content:hover .modal-header h3 {
+            transform: translateX(5px);
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-medium);
+            background-color: rgba(232, 232, 237, 0.8);
+            color: var(--text-primary);
+            font-size: 16px;
+            cursor: pointer;
+            transition: all var(--transition-medium) var(--transition-elastic);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-modal:hover {
+            background-color: rgba(210, 210, 215, 0.8);
+            transform: rotate(90deg) scale(1.1);
+            box-shadow: var(--shadow-subtle);
+        }
+
+        .modal-body {
+            padding: var(--space-xl);
+        }
+
+        .modal-form {
+            display: grid;
+            gap: var(--space-lg);
+            transform-style: preserve-3d;
+        }
+
+        .form-group {
+            margin-bottom: 0;
+            transform-style: preserve-3d;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--space-xs);
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: var(--font-size-sm);
+            transition: transform var(--transition-medium);
+        }
+
+        .modal-form:hover .form-group label {
+            transform: translateX(5px);
+        }
+
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background-color: rgba(245, 245, 247, 0.8);
+            backdrop-filter: blur(var(--glass-blur));
+            border: 1px solid rgba(210, 210, 215, 0.8);
+            border-radius: var(--radius-medium);
+            color: var(--text-primary);
+            font-size: var(--font-size-base);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            font-family: inherit;
+            transform-style: preserve-3d;
+        }
+
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1), 0 4px 12px rgba(0, 122, 255, 0.1);
+            transform: translateZ(10px);
+        }
+
+        .service-details-container {
+            background-color: rgba(245, 245, 247, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-large);
+            padding: var(--space-lg);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            animation: fadeIn 0.3s ease var(--transition-elastic);
+            display: none;
+            transform-style: preserve-3d;
+        }
+
+        .service-details-container.active {
+            display: block;
+            animation: slideUp 0.3s ease var(--transition-elastic) both;
+        }
+
+        .service-details-container h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            transition: transform var(--transition-medium);
+        }
+
+        .service-details-container:hover h4 {
+            transform: translateX(5px);
+        }
+
+        .service-details-container p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: var(--space-sm);
+            font-size: var(--font-size-base);
+            transition: transform var(--transition-medium);
+        }
+
+        .service-details-container:hover p {
+            transform: translateX(5px);
+        }
+
+        .service-pricing {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-medium);
+            padding: var(--space-md);
+            margin-top: var(--space-md);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            transition: all var(--transition-medium);
+        }
+
+        .service-pricing h5 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            transition: transform var(--transition-medium);
+        }
+
+        .service-pricing:hover h5 {
+            transform: translateX(5px);
+        }
+
+        .service-pricing ul {
+            list-style: none;
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+        }
+
+        .service-pricing li {
+            margin-bottom: var(--space-xs);
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            transition: transform var(--transition-medium);
+        }
+
+        .service-pricing:hover li {
+            transform: translateX(5px);
+        }
+
+        .service-pricing li i {
+            color: var(--accent-green);
+            font-size: 12px;
+            transition: transform var(--transition-medium) var(--transition-bounce);
+        }
+
+        .service-pricing:hover li i {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        .modal-footer {
+            padding: var(--space-lg) var(--space-xl);
+            border-top: 1px solid rgba(210, 210, 215, 0.5);
+            display: flex;
+            justify-content: flex-end;
+            gap: var(--space-md);
+            background-color: rgba(245, 245, 247, 0.8);
+            border-radius: 0 0 var(--radius-extra-large) var(--radius-extra-large);
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border-radius: var(--radius-medium);
+            font-size: var(--font-size-base);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all var(--transition-medium) var(--transition-elastic);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            transform-style: preserve-3d;
+        }
+
+        .modal-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+            transform: translate(-50%, -50%);
+            transition: width var(--transition-medium), height var(--transition-medium);
+        }
+
+        .modal-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .modal-btn.cancel {
+            background-color: rgba(232, 232, 237, 0.8);
+            color: var(--text-secondary);
+        }
+
+        .modal-btn.cancel:hover {
+            background-color: rgba(210, 210, 215, 0.8);
+            transform: translateY(-3px) translateZ(10px);
+            box-shadow: var(--shadow-subtle);
+            color: var(--text-primary);
+        }
+
+        .modal-btn.submit {
+            background: linear-gradient(135deg, var(--accent-green), #2da44e);
+            color: white;
+            box-shadow: 0 4px 12px rgba(52, 199, 89, 0.2);
+        }
+
+        .modal-btn.submit:hover {
+            background: linear-gradient(135deg, #2da44e, var(--accent-green));
+            transform: translateY(-3px) translateZ(10px);
+            box-shadow: 0 6px 20px rgba(52, 199, 89, 0.3);
+        }
+
+        /* ============================================
+           ENHANCED TESTIMONIALS SECTION - 3D Cards
+        ============================================ */
+        .testimonials-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-xxl);
+            align-items: start;
+        }
+
+        .testimonial-card {
+            background-color: rgba(245, 245, 247, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-extra-large);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-medium);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            transform-style: preserve-3d;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-8px) translateZ(20px);
+            box-shadow: var(--shadow-elevated);
+            border-color: rgba(0, 122, 255, 0.3);
+        }
+
+        .testimonial-header {
+            display: flex;
+            align-items: center;
+            gap: var(--space-lg);
+            margin-bottom: var(--space-lg);
+        }
+
+        .testimonial-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-circle);
+            overflow: hidden;
+            border: 2px solid var(--accent-blue);
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            transform-style: preserve-3d;
+        }
+
+        .testimonial-card:hover .testimonial-avatar {
+            transform: scale(1.15) rotate(5deg) translateZ(20px);
+            box-shadow: 0 6px 18px rgba(0, 122, 255, 0.25);
+        }
+
+        .testimonial-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform var(--transition-medium);
+        }
+
+        .testimonial-card:hover .testimonial-avatar img {
+            transform: scale(1.1);
+        }
+
+        .testimonial-info h4 {
+            font-size: var(--font-size-lg);
+            font-weight: 700;
+            margin-bottom: var(--space-xs);
+            color: var(--text-primary);
+            transition: transform var(--transition-medium);
+        }
+
+        .testimonial-card:hover .testimonial-info h4 {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .testimonial-info .role {
+            color: var(--text-secondary);
+            font-size: var(--font-size-sm);
+            font-weight: 500;
+            transition: transform var(--transition-medium);
+        }
+
+        .testimonial-card:hover .testimonial-info .role {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            font-style: italic;
+            margin-bottom: var(--space-lg);
+            position: relative;
+            padding-left: var(--space-md);
+            transition: transform var(--transition-medium);
+        }
+
+        .testimonial-card:hover .testimonial-text {
+            transform: translateX(5px) translateZ(10px);
+        }
+
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            top: -10px;
+            left: 0;
+            font-size: 40px;
+            color: var(--accent-blue);
+            opacity: 0.2;
+            font-family: serif;
+            transition: all var(--transition-medium);
+        }
+
+        .testimonial-card:hover .testimonial-text::before {
+            transform: scale(1.2) rotate(-5deg);
+            opacity: 0.3;
+        }
+
+        .testimonial-video {
+            position: relative;
+            border-radius: var(--radius-extra-large);
+            overflow: hidden;
+            box-shadow: var(--shadow-elevated);
+            height: 500px;
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both;
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            transform-style: preserve-3d;
+            transition: transform var(--transition-medium);
+        }
+
+        .testimonial-video:hover {
+            transform: translateZ(20px);
+            box-shadow: var(--shadow-deep);
+        }
+
+        .testimonial-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform var(--transition-slow);
+        }
+
+        .testimonial-video:hover video {
+            transform: scale(1.05);
+        }
+
+        .video-controls {
+            position: absolute;
+            bottom: var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius-large);
+            padding: 8px 20px;
+            display: flex;
+            align-items: center;
+            gap: var(--space-sm);
+            color: white;
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            transition: all var(--transition-medium);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .testimonial-video:hover .video-controls {
+            background-color: rgba(0, 122, 255, 0.9);
+            transform: translateX(-50%) translateZ(20px);
+            box-shadow: 0 6px 18px rgba(0, 122, 255, 0.3);
+        }
+
+        /* ============================================
+           ENHANCED CONTACT SECTION - Interactive Grid
+        ============================================ */
+        .contact-section {
+            background-color: rgba(245, 245, 247, var(--glass-opacity));
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-extra-large);
+            padding: var(--space-xl);
+            box-shadow: var(--shadow-medium);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            transform-style: preserve-3d;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: var(--space-lg);
+            margin-bottom: var(--space-xxl);
+        }
+
+        .contact-item {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(var(--glass-blur));
+            border-radius: var(--radius-large);
+            padding: var(--space-lg);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            border: 1px solid rgba(210, 210, 215, 0.5);
+            text-align: center;
+            animation: slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+            transform-style: preserve-3d;
+        }
+
+        .contact-item:hover {
+            transform: translateY(-8px) translateZ(20px);
+            box-shadow: var(--shadow-medium);
+            border-color: rgba(0, 122, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .contact-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: var(--radius-circle);
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto var(--space-md);
+            color: white;
+            font-size: 18px;
+            box-shadow: 0 4px 12px rgba(0, 122, 255, 0.15);
+            transition: all var(--transition-medium) var(--transition-elastic);
+            transform-style: preserve-3d;
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: scale(1.15) rotate(10deg) translateZ(20px);
+            box-shadow: 0 6px 18px rgba(0, 122, 255, 0.25);
+        }
+
+        .contact-details h4 {
+            color: var(--text-primary);
+            margin-bottom: var(--space-xs);
+            font-size: var(--font-size-lg);
+            font-weight: 600;
+            transition: transform var(--transition-medium);
+        }
+
+        .contact-item:hover .contact-details h4 {
+            transform: translateY(-2px) translateZ(10px);
+        }
+
+        .contact-details p {
+            color: var(--text-secondary);
+            font-size: var(--font-size-base);
+            line-height: 1.5;
+            transition: transform var(--transition-medium);
+        }
+
+        .contact-item:hover .contact-details p {
+            transform: translateY(-2px) translateZ(10px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-md);
+            margin-top: var(--space-xl);
+            flex-wrap: wrap;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-circle);
+            background-color: rgba(232, 232, 237, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-primary);
+            font-size: 16px;
+            text-decoration: none;
+            transition: all var(--transition-medium) var(--transition-elastic);
+            transform-style: preserve-3d;
+        }
+
+        .social-link:hover {
+            transform: translateY(-6px) scale(1.15) translateZ(20px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .social-link.facebook:hover {
+            background: linear-gradient(135deg, #1877f2, #0d5cb6);
+            color: white;
+        }
+
+        .social-link.instagram:hover {
+            background: linear-gradient(45deg, #405de6, #5851db, #833ab4, #c13584, #e1306c, #fd1d1d);
+            color: white;
+        }
+
+        .social-link.whatsapp:hover {
+            background: linear-gradient(135deg, var(--accent-green), #2da44e);
+            color: white;
+        }
+
+        .social-link.tiktok:hover {
+            background: linear-gradient(135deg, #000000, #25f4ee, #fe2c55);
+            color: white;
+        }
+
+        /* ============================================
+           ENHANCED FOOTER - Glass Effect
+        ============================================ */
+        footer {
+            background-color: rgba(29, 29, 31, 0.95);
+            backdrop-filter: blur(var(--glass-blur));
+            padding: var(--space-xxxl) 0 var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            animation: gradientMove 3s linear infinite;
+        }
+
+        .footer-logo {
+            font-size: var(--font-size-xxl);
+            font-weight: 700;
+            color: var(--background-primary);
+            margin-bottom: var(--space-md);
+            letter-spacing: -0.5px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: transform var(--transition-medium);
+            display: inline-block;
+        }
+
+        footer:hover .footer-logo {
+            transform: scale(1.05);
+        }
+
+        footer p {
+            color: var(--apple-grey-3);
+            margin-top: var(--space-lg);
+            font-size: var(--font-size-sm);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.5;
+            transition: transform var(--transition-medium);
+        }
+
+        footer:hover p {
+            transform: translateY(-2px);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--space-xl);
+            margin-top: var(--space-xxl);
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--apple-grey-3);
+            text-decoration: none;
+            font-size: var(--font-size-sm);
+            transition: all var(--transition-medium);
+            position: relative;
+        }
+
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-purple));
+            transition: width var(--transition-medium);
+        }
+
+        .footer-links a:hover {
+            color: var(--background-primary);
+        }
+
+        .footer-links a:hover::after {
+            width: 100%;
+        }
+
+        /* ============================================
+           ENHANCED ANIMATIONS
+        ============================================ */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(40px) translateZ(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) translateZ(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px) scale(0.95) translateZ(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1) translateZ(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-40px) translateZ(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) translateZ(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(40px) translateZ(-100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) translateZ(0);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        @keyframes gradientMove {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* ============================================
+           MOBILE PORTRAIT OPTIMIZATION - CRITICAL FIXES
+        ============================================ */
+        @media (max-width: 768px) and (orientation: portrait) {
+            /* Ensure all images and videos display properly in portrait */
+            .service-media,
+            .portfolio-media,
+            .testimonial-video,
+            .founder-media,
+            .about-media {
+                height: 300px !important;
+                min-height: 300px !important;
+                max-height: 400px !important;
+                overflow: hidden !important;
+            }
+            
+            /* Force portrait aspect ratio for media */
+            .service-media img,
+            .service-media video,
+            .portfolio-media img,
+            .testimonial-video video,
+            .founder-media img,
+            .about-media img {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain !important;
+                object-position: center center !important;
+                display: block !important;
+            }
+            
+            /* Developer screenshots optimization for portrait */
+            .portfolio-item[data-category="developer"] .portfolio-media {
+                height: 500px !important;
+                padding: var(--space-md) !important;
+            }
+            
+            .portfolio-item[data-category="developer"] .portfolio-media img {
+                width: auto !important;
+                height: 100% !important;
+                max-width: 100% !important;
+                max-height: 100% !important;
+                object-fit: contain !important;
+                border-radius: var(--radius-small) !important;
+            }
+            
+            /* Hero logo optimization */
+            .hero-logo-img {
+                max-width: 80% !important;
+                max-height: 300px !important;
+                object-fit: contain !important;
+            }
+            
+            /* Adjust service card layout for portrait */
+            .service-card-inner {
+                grid-template-columns: 1fr !important;
+                min-height: auto !important;
+            }
+            
+            .service-media {
+                order: -1 !important;
+            }
+            
+            /* Improve touch targets */
+            .nav-links a,
+            .filter-btn,
+            .modal-btn,
+            .social-link {
+                min-height: 44px !important;
+                min-width: 44px !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+            }
+            
+            /* Adjust spacing for mobile */
+            section {
+                padding: var(--space-xl) 0 !important;
+            }
+            
+            .hero {
+                padding-top: calc(var(--nav-height) + var(--space-lg)) !important;
+                padding-bottom: var(--space-xl) !important;
+                min-height: 100vh !important;
+            }
+            
+            /* Fix modal for mobile */
+            .modal-content {
+                max-height: 80vh !important;
+                margin: var(--space-sm) !important;
+                border-radius: var(--radius-large) !important;
+            }
+            
+            /* Ensure videos play inline on mobile */
+            video {
+                playsinline: true !important;
+                webkit-playsinline: true !important;
+            }
+            
+            /* Adjust grid layouts for portrait */
+            .contact-grid,
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr !important;
+                gap: var(--space-lg) !important;
+            }
+            
+            .testimonials-container {
+                grid-template-columns: 1fr !important;
+                gap: var(--space-lg) !important;
+            }
+            
+            .founder-container,
+            .about-section {
+                grid-template-columns: 1fr !important;
+                gap: var(--space-lg) !important;
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .container {
+                padding: 0 var(--space-md);
+            }
+            
+            .hero-text h1 {
+                font-size: var(--font-size-xxl);
+            }
+            
+            .service-card-inner {
+                min-height: 420px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+                text-align: center;
+            }
+            
+            .hero-text h1 {
+                font-size: var(--font-size-xxl);
+            }
+            
+            .hero-text .tagline {
+                font-size: var(--font-size-md);
+            }
+            
+            .section-title {
+                font-size: var(--font-size-xl);
+            }
+            
+            .about-section,
+            .founder-container,
+            .testimonials-container {
+                grid-template-columns: 1fr;
+                gap: var(--space-xl);
+            }
+            
+            .testimonial-video {
+                height: 400px;
+            }
+            
+            .service-card-inner {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+            
+            .service-media {
+                height: 300px;
+                order: -1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: var(--nav-height);
+                left: 0;
+                width: 100%;
+                background-color: rgba(255, 255, 255, 0.98);
+                backdrop-filter: saturate(180%) blur(var(--glass-blur));
+                flex-direction: column;
+                padding: var(--space-lg);
+                gap: var(--space-sm);
+                z-index: 999;
+                box-shadow: var(--shadow-medium);
+                border-top: 1px solid var(--border-light);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links a {
+                width: 100%;
+                text-align: center;
+                padding: var(--space-sm);
+            }
+            
+            .mobile-menu-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            
+            .quote-button {
+                margin-left: 0;
+                order: -1;
+            }
+            
+            .hero {
+                padding-top: calc(var(--nav-height) + var(--space-xxl));
+                padding-bottom: var(--space-xxxl);
+            }
+            
+            .hero-text h1 {
+                font-size: var(--font-size-xl);
+            }
+            
+            .loading-logo {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-item[data-category="developer"] .portfolio-media {
+                height: 350px;
+            }
+            
+            .service-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-overlay {
+                padding: var(--space-md);
+            }
+            
+            .modal-content {
+                max-height: 80vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-text h1 {
+                font-size: var(--font-size-lg);
+            }
+            
+            .section-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .section-subtitle {
+                font-size: var(--font-size-base);
+            }
+            
+            .service-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .founder-title {
+                font-size: var(--font-size-lg);
+            }
+            
+            .service-card,
+            .portfolio-section,
+            .testimonial-card,
+            .contact-section,
+            .modal-content {
+                padding: var(--space-lg);
+                border-radius: var(--radius-large);
+            }
+            
+            .service-content {
+                padding: var(--space-lg);
+            }
+            
+            .loading-bar {
+                width: 180px;
+            }
+            
+            .testimonial-video {
+                height: 300px;
+            }
+            
+            .modal-header,
+            .modal-body,
+            .modal-footer {
+                padding: var(--space-lg);
+            }
+            
+            /* Mobile portrait specific fixes */
+            .service-media,
+            .portfolio-media,
+            .testimonial-video,
+            .founder-media,
+            .about-media {
+                height: 250px !important;
+                min-height: 250px !important;
+            }
+            
+            .portfolio-item[data-category="developer"] .portfolio-media {
+                height: 400px !important;
+            }
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+        ============================================ */
+        .hidden {
+            display: none !important;
+        }
+
+        .visible {
+            display: block !important;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mb-sm {
+            margin-bottom: var(--space-sm);
+        }
+
+        .mb-md {
+            margin-bottom: var(--space-md);
+        }
+
+        .mb-lg {
+            margin-bottom: var(--space-lg);
+        }
+
+        .mb-xl {
+            margin-bottom: var(--space-xl);
+        }
+
+        .mt-sm {
+            margin-top: var(--space-sm);
+        }
+
+        .mt-md {
+            margin-top: var(--space-md);
+        }
+
+        .mt-lg {
+            margin-top: var(--space-lg);
+        }
+
+        .mt-xl {
+            margin-top: var(--space-xl);
+        }
+
+        .animate-delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.2s;
+        }
+
+        .animate-delay-3 {
+            animation-delay: 0.3s;
+        }
+
+        /* ============================================
+           ENHANCED SCROLLBAR STYLING
+        ============================================ */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--background-primary);
+            border-radius: var(--radius-small);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            border-radius: var(--radius-small);
+            transition: all var(--transition-medium);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            box-shadow: 0 0 8px rgba(0, 122, 255, 0.3);
+        }
+
+        /* ============================================
+           SELECTION STYLING
+        ============================================ */
+        ::selection {
+            background-color: rgba(0, 122, 255, 0.3);
+            color: var(--text-primary);
+            text-shadow: none;
+        }
+
+        /* ============================================
+           FOCUS VISIBLE
+        ============================================ */
+        :focus-visible {
+            outline: 2px solid var(--accent-blue);
+            outline-offset: 3px;
+            border-radius: var(--radius-small);
+            box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+        }
+
+        /* ============================================
+           PERFORMANCE OPTIMIZATIONS
+        ============================================ */
+        .will-change-transform {
+            will-change: transform;
+        }
+
+        .will-change-opacity {
+            will-change: opacity;
+        }
+
+        .backface-hidden {
+            backface-visibility: hidden;
+        }
+
+        .transform-3d {
+            transform-style: preserve-3d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loading-logo">
+            <img src="logo.png" alt="Buffer Zone Logo">
+        </div>
+        <div class="loading-text">Loading Buffer Zone...</div>
+        <div class="loading-bar">
+            <div class="loading-progress"></div>
+        </div>
+    </div>
+
+    <!-- Modal Popup -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Request a Quote</h3>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="payment-notice" style="margin-bottom: var(--space-lg);">
+                    <h4><i class="fas fa-handshake"></i> Project Initiation Policy</h4>
+                    <p>To begin any project, we require a 50% down payment. The remaining balance is due upon project completion and delivery. All prices are negotiable based on project scope and requirements.</p>
+                </div>
+                
+                <form class="modal-form" id="quoteForm">
+                    <div class="form-group">
+                        <label for="modalCategory">Select Category</label>
+                        <select id="modalCategory" name="category" required>
+                            <option value="">Choose a category</option>
+                            <option value="Graphic Design">Graphic Design</option>
+                            <option value="Developer Services">Developer Services</option>
+                            <option value="Technical Services">Technical Services</option>
+                            <option value="Multiple Services">Multiple Services</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalService">Select Service</label>
+                        <select id="modalService" name="service" required>
+                            <option value="">Choose a service</option>
+                            <option value="Logo Design & Brand Identity">Logo Design & Brand Identity</option>
+                            <option value="Website Development">Website Development</option>
+                            <option value="Mobile App Development">Mobile App Development</option>
+                            <option value="Technical Support">Technical Support</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="modalDescription">Project Details</label>
+                        <textarea id="modalDescription" name="description" rows="4" placeholder="Please describe your project requirements, timeline, budget considerations, and any specific details we should know..."></textarea>
+                    </div>
+                    
+                    <div id="modalServiceDetails" class="service-details-container">
+                        <h4 id="modalServiceTitle">Service Details</h4>
+                        <p id="modalServiceDescription">Select a service to see detailed information about timeline, process, and what's included.</p>
+                        <div class="service-pricing">
+                            <h5>Pricing Information</h5>
+                            <ul>
+                                <li><i class="fas fa-check-circle"></i> 50% down payment required to start project</li>
+                                <li><i class="fas fa-check-circle"></i> Final payment upon completion and delivery</li>
+                                <li><i class="fas fa-check-circle"></i> Prices negotiable based on project scope</li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="modal-btn cancel" id="cancelModal">Cancel</button>
+                <button type="button" class="modal-btn submit" id="submitModal">
+                    <i class="fab fa-whatsapp"></i> Request via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="mainNav">
+        <div class="nav-container">
+            <a href="#home" class="logo">
+                <img src="logo.png" alt="Buffer Zone Logo" class="logo-img">
+                <span class="logo-text">BUFFER ZONE</span>
+            </a>
+            <button class="quote-button" id="openModalBtn">
+                <i class="fas fa-paper-plane"></i> Get Quote
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="#home" class="active">Home</a>
+                <a href="#services">Services</a>
+                <a href="#founder">Founder</a>
+                <a href="#graphic-design">Graphic Design</a>
+                <a href="#developer">Developer</a>
+                <a href="#technical">Technical</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#about">About</a>
+                <a href="#testimonials">Testimonials</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="hero section-bg-white">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1>BUFFER ZONE</h1>
+                    <p class="tagline">Where pixels and code create magic. Your all-in-one go-to company for all your digital and technical services.</p>
+                    <div class="payment-notice">
+                        <h4><i class="fas fa-handshake"></i> Project Initiation Policy</h4>
+                        <p>To begin any project, we require a 50% down payment. The remaining balance is due upon project completion and delivery. This ensures commitment from both parties and allows us to allocate resources effectively for your project. All prices are negotiable based on project scope and requirements.</p>
+                    </div>
+                </div>
+                <div class="hero-logo">
+                    <img src="logo.png" alt="Buffer Zone Logo" class="hero-logo-img">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="section-bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Core Services</h2>
+                <p class="section-subtitle">We offer comprehensive digital solutions that bridge creativity with technology, ensuring your business stands out in the digital landscape.</p>
+            </div>
+            
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-card-inner">
+                        <div class="service-content">
+                            <div class="service-icon">
+                                <i class="fas fa-laptop-code"></i>
+                            </div>
+                            <h3 class="service-title">Digital Excellence Services</h3>
+                            <p class="service-description">Our team of experts provides a full spectrum of digital services from creative design to technical implementation. We ensure every project is delivered with precision, innovation, and attention to detail.</p>
+                            
+                            <ul class="service-features">
+                                <li><i class="fas fa-check-circle"></i> Comprehensive Digital Strategy</li>
+                                <li><i class="fas fa-check-circle"></i> Cross-Platform Solutions</li>
+                                <li><i class="fas fa-check-circle"></i> User-Centered Design</li>
+                                <li><i class="fas fa-check-circle"></i> Performance Optimization</li>
+                                <li><i class="fas fa-check-circle"></i> Ongoing Support & Maintenance</li>
+                                <li><i class="fas fa-check-circle"></i> Analytics & Reporting</li>
+                            </ul>
+                            
+                            <div class="service-explanation">
+                                <h4>Why Choose Our Services?</h4>
+                                <p>We combine cutting-edge technology with creative design thinking to deliver solutions that not only look great but also perform exceptionally. Our process is collaborative, transparent, and focused on achieving your business goals.</p>
+                            </div>
+                        </div>
+                        <div class="service-media">
+                            <img src="logo.png" alt="Digital Services">
+                            <div class="media-label">Digital Services Showcase</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founder Section -->
+    <section id="founder" class="founder-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Meet Our Founder</h2>
+                <p class="section-subtitle">The vision and expertise behind Buffer Zone's success in digital transformation.</p>
+            </div>
+            
+            <div class="founder-container">
+                <div class="founder-media">
+                    <img src="developer.png" alt="Jubel Mobela - Founder of Buffer Zone">
+                </div>
+                <div class="founder-content">
+                    <div class="founder-badge">Founder & CEO</div>
+                    <h2 class="founder-title">Visionary Leader</h2>
+                    <div class="founder-name">Jubel Mobela</div>
+                    <p class="founder-description">With over a five years of experience in digital technology and creative design, Jubel founded Buffer Zone with a vision to bridge the gap between technical excellence and creative innovation. His expertise spans across software development, graphic design, and IT infrastructure.</p>
+                    
+                    <p class="founder-description">Jubel's hands-on approach and commitment to quality have been instrumental in building Buffer Zone's reputation for delivering exceptional digital solutions that drive real business results for clients across various industries.</p>
+                    
+                    <div class="founder-quote">
+                        "Technology should go beyond fixing challenges — it should spark growth, creativity, and possibility. At Buffer Zone, every digital experience is crafted to balance innovation with elegance, empowering businesses to not only function online, but to truly stand out and thrive in the digital era."
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Graphic Design Services -->
+    <section id="graphic-design" class="section-bg-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Graphic Design Services</h2>
+                <p class="section-subtitle">Transform your brand with stunning visual designs that communicate your message effectively and leave a lasting impression.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-card-inner">
+                    <div class="service-media">
+                        <video src="graphics.mp4" autoplay muted loop playsinline></video>
+                        <div class="media-label">Graphic Design Showcase</div>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h3 class="service-title">Visual Creativity</h3>
+                        <p class="service-description">Our graphic design services cover everything from brand identity to digital assets. We create visuals that not only look beautiful but also drive results and engage your target audience.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Logo Design & Brand Identity</li>
+                            <li><i class="fas fa-check-circle"></i> Business Cards & Stationery</li>
+                            <li><i class="fas fa-check-circle"></i> Social Media Graphics & Ads</li>
+                            <li><i class="fas fa-check-circle"></i> Posters, Flyers & Banners</li>
+                            <li><i class="fas fa-check-circle"></i> Brochures & Magazines</li>
+                            <li><i class="fas fa-check-circle"></i> Packaging & Label Design</li>
+                            <li><i class="fas fa-check-circle"></i> T-Shirt & Merchandise Design</li>
+                            <li><i class="fas fa-check-circle"></i> UI/UX Design</li>
+                            <li><i class="fas fa-check-circle"></i> Website Graphics & Layout</li>
+                            <li><i class="fas fa-check-circle"></i> Presentation Slides</li>
+                            <li><i class="fas fa-check-circle"></i> Infographics & Visual Content</li>
+                            <li><i class="fas fa-check-circle"></i> Photo Editing & Retouching</li>
+                            <li><i class="fas fa-check-circle"></i> Motion Graphics</li>
+                            <li><i class="fas fa-check-circle"></i> 3D Design & Mockups</li>
+                        </ul>
+                        
+                        <div class="service-explanation">
+                            <h4>Professional Design Process</h4>
+                            <p>Our design process begins with comprehensive discovery to understand your brand, target audience, and objectives. We then move through concept development, design execution, and iterative refinement.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Developer Services -->
+    <section id="developer" class="section-bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Developer Services</h2>
+                <p class="section-subtitle">Build powerful digital solutions with our expert development team. From websites to complex systems, we create technology that works for your business.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-card-inner">
+                    <div class="service-media">
+                        <video src="developer.mp4" autoplay muted loop playsinline></video>
+                        <div class="media-label">Development Process</div>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="service-title">Technical Development</h3>
+                        <p class="service-description">We build robust, scalable digital solutions that drive business growth. Our development team specializes in creating custom software tailored to your specific needs and requirements.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Website Design & Development</li>
+                            <li><i class="fas fa-check-circle"></i> E-commerce Website Development</li>
+                            <li><i class="fas fa-check-circle"></i> Mobile App Development</li>
+                            <li><i class="fas fa-check-circle"></i> Web App & System Development</li>
+                            <li><i class="fas fa-check-circle"></i> Company Portfolio Websites</li>
+                            <li><i class="fas fa-check-circle"></i> Booking & Management Systems</li>
+                            <li><i class="fas fa-check-circle"></i> Inventory & POS Systems</li>
+                            <li><i class="fas fa-check-circle"></i> School Management Systems</li>
+                            <li><i class="fas fa-check-circle"></i> Transport & Logistics Systems</li>
+                            <li><i class="fas fa-check-circle"></i> Database Design & Management</li>
+                            <li><i class="fas fa-check-circle"></i> API Integration & Automation</li>
+                            <li><i class="fas fa-check-circle"></i> Website Maintenance & Hosting</li>
+                            <li><i class="fas fa-check-circle"></i> Domain Setup & Email Configuration</li>
+                            <li><i class="fas fa-check-circle"></i> System Troubleshooting</li>
+                            <li><i class="fas fa-check-circle"></i> Cybersecurity Solutions</li>
+                            <li><i class="fas fa-check-circle"></i> Software Installation</li>
+                        </ul>
+                        
+                        <div class="service-explanation">
+                            <h4>Agile Development Methodology</h4>
+                            <p>We employ agile development practices to ensure timely delivery and maximum flexibility. Our process includes sprint planning, iterative development, continuous testing, and regular client demos.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technical Services -->
+    <section id="technical" class="section-bg-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Technical Services</h2>
+                <p class="section-subtitle">Keep your technology running smoothly with our comprehensive technical support and IT solutions for businesses and individuals.</p>
+            </div>
+            
+            <div class="service-card">
+                <div class="service-card-inner">
+                    <div class="service-media">
+                        <video src="technical.mp4" autoplay muted loop playsinline></video>
+                        <div class="media-label">Technical Services</div>
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                        <h3 class="service-title">IT Support & Solutions</h3>
+                        <p class="service-description">We provide reliable technical services to keep your systems running optimally. From hardware repairs to network setup, our technicians ensure minimal downtime and maximum productivity.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Computer & Laptop Repair</li>
+                            <li><i class="fas fa-check-circle"></i> Software Installation & Updates</li>
+                            <li><i class="fas fa-check-circle"></i> Virus Removal & Optimization</li>
+                            <li><i class="fas fa-check-circle"></i> Network Setup (Wi-Fi, LAN)</li>
+                            <li><i class="fas fa-check-circle"></i> Printer Installation & Repair</li>
+                            <li><i class="fas fa-check-circle"></i> CCTV Installation & Maintenance</li>
+                            <li><i class="fas fa-check-circle"></i> Hardware Upgrades</li>
+                            <li><i class="fas fa-check-circle"></i> Data Backup & Recovery</li>
+                            <li><i class="fas fa-check-circle"></i> Operating System Installation</li>
+                            <li><i class="fas fa-check-circle"></i> Email & Cloud Setup</li>
+                            <li><i class="fas fa-check-circle"></i> Website Hosting & Support</li>
+                            <li><i class="fas fa-check-circle"></i> IT Consultancy</li>
+                            <li><i class="fas fa-check-circle"></i> System Maintenance Contracts</li>
+                            <li><i class="fas fa-check-circle"></i> Office IT Setup</li>
+                            <li><i class="fas fa-check-circle"></i> User Training & Tech Support</li>
+                        </ul>
+                        
+                        <div class="service-explanation">
+                            <h4>Comprehensive Technical Support</h4>
+                            <p>Our technical services include rapid response times, expert troubleshooting, and preventative maintenance to ensure your technology infrastructure remains secure, efficient, and reliable.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section-bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Our Portfolio</h2>
+                <p class="section-subtitle">Explore our recent work and see how we've helped businesses transform their digital presence with our creative and technical solutions.</p>
+            </div>
+            
+            <div class="portfolio-section">
+                <div class="portfolio-filter">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="graphic">Graphic Design</button>
+                    <button class="filter-btn" data-filter="developer">Developer</button>
+                    <button class="filter-btn" data-filter="technical">Technical Services</button>
+                </div>
+                
+                <div class="portfolio-grid">
+                    <!-- Graphic Design Projects -->
+                    <div class="portfolio-item" data-category="graphic">
+                        <div class="portfolio-media">
+                            <img src="graphicsflyer1.png" alt="Coffee & Tea Restaurant Flyer">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Coffee & Tea Restaurant</h3>
+                            <p>Elegant flyer design for a premium coffee and tea restaurant, featuring warm colors and sophisticated typography to appeal to discerning customers.</p>
+                            <div class="portfolio-category">Graphic Design</div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item" data-category="graphic">
+                        <div class="portfolio-media">
+                            <img src="graphicsflyer2.png" alt="Boutique Clothing Flyer">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Fashion Boutique Collection</h3>
+                            <p>Modern flyer design for a clothing boutique, showcasing the latest fashion collection with clean layouts and vibrant imagery to attract style-conscious shoppers.</p>
+                            <div class="portfolio-category">Graphic Design</div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item" data-category="graphic">
+                        <div class="portfolio-media">
+                            <img src="graphicsflyer3.png" alt="Speech Themed Flyer">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>The Untold Story Speech</h3>
+                            <p>Inspirational flyer design for a motivational speech event, using powerful imagery and compelling typography to convey the theme of revealing untold stories.</p>
+                            <div class="portfolio-category">Graphic Design</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Developer Projects - App Screenshots -->
+                    <div class="portfolio-item" data-category="developer">
+                        <div class="portfolio-media">
+                            <img src="wiza.jpeg" alt="Wiza Food Cafe App">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Wiza Food Cafe App</h3>
+                            <p>Food delivery and cafe management mobile application with order tracking, payment integration, and customer loyalty features. Built for both iOS and Android platforms.</p>
+                            <div class="portfolio-category">Developer</div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item" data-category="developer">
+                        <div class="portfolio-media">
+                            <img src="jubel.jpeg" alt="Jubel Ride Hailing App">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Jubel Ride Hailing App</h3>
+                            <p>Ride-hailing application with real-time tracking, fare calculation, driver matching, and secure payment processing. Features both passenger and driver interfaces.</p>
+                            <div class="portfolio-category">Developer</div>
+                        </div>
+                    </div>
+                    
+                    <!-- Technical Services Projects -->
+                    <div class="portfolio-item" data-category="technical">
+                        <div class="portfolio-media">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-lg); font-weight: bold;">
+                                Network Setup Project
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Office Network Infrastructure</h3>
+                            <p>Complete office network setup for a 50-employee company. Included Wi-Fi deployment, LAN cabling, server configuration, and security implementation.</p>
+                            <div class="portfolio-category">Technical Services</div>
+                        </div>
+                    </div>
+                    
+                    <div class="portfolio-item" data-category="technical">
+                        <div class="portfolio-media">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple)); display: flex; align-items: center; justify-content: center; color: white; font-size: var(--font-size-lg); font-weight: bold;">
+                                CCTV Installation
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Security System Implementation</h3>
+                            <p>CCTV installation and surveillance system setup for a retail chain with 8 locations. Includes remote monitoring capabilities and cloud storage integration.</p>
+                            <div class="portfolio-category">Technical Services</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section-bg-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">About Buffer Zone</h2>
+                <p class="section-subtitle">Learn more about who we are, what we do, and why we're the right choice for your digital and technical needs.</p>
+            </div>
+            
+            <div class="about-section">
+                <div class="about-media">
+                    <img src="logo.png" alt="Buffer Zone Logo">
+                </div>
+                <div class="about-content">
+                    <h2>Who We Are</h2>
+                    <p>Buffer Zone is a premier digital and technical services company founded on the principle that technology should be both beautiful and functional. We bridge the gap between creative design and technical implementation to deliver comprehensive solutions for businesses of all sizes.</p>
+                    
+                    <p>Our team consists of experienced designers, developers, and technicians who are passionate about creating digital experiences that drive results. We combine artistic vision with technical expertise to transform your ideas into reality.</p>
+                    
+                    <p>With years of industry experience, we've developed a process that ensures every project is delivered on time, within budget, and to the highest quality standards. We believe in building lasting relationships with our clients based on trust, transparency, and exceptional service.</p>
+                    
+                    <div class="reliability-badge">
+                        <h3><i class="fas fa-shield-alt"></i> Our Reliability Promise</h3>
+                        <p>We stand behind our work with a 100% satisfaction guarantee. Our commitment to quality means we won't stop until you're completely happy with the results. We provide ongoing support and maintenance to ensure your solutions continue to perform optimally long after delivery.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section-bg-light">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Client Testimonials</h2>
+                <p class="section-subtitle">See what our clients have to say about their experience working with Buffer Zone.</p>
+            </div>
+            
+            <div class="testimonials-container">
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple)); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Mary Namutowe</h4>
+                            <div class="role">cafe solutions</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        "Buffer Zone transformed our online presence completely. Their graphic design team created a stunning brand identity, and their developers built us a website that increased our sales by 40%. The attention to detail and professional approach were outstanding. Highly recommended!"
+                    </div>
+                </div>
+                
+                <div class="testimonial-video">
+                    <video src="testimony.mp4" controls playsinline poster="logo.png"></video>
+                    <div class="video-controls">
+                        <i class="fas fa-play"></i>
+                        <span>Client Testimonial</span>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <div class="testimonial-avatar">
+                            <div style="width: 100%; height: 100%; background: linear-gradient(135deg, var(--accent-green), var(--accent-blue)); display: flex; align-items: center; justify-content: center; color: white; font-size: 24px;">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                        </div>
+                        <div class="testimonial-info">
+                            <h4>Michael mwaba</h4>
+                            <div class="role">luso enterprise.</div>
+                        </div>
+                    </div>
+                    <div class="testimonial-text">
+                        "The technical support team from Buffer Zone saved our business during a critical system failure. Their rapid response and expertise minimized our downtime. We've since hired them for all our IT needs and their ongoing support has been exceptional. Truly reliable partners!"
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section-bg-white">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Contact Us</h2>
+                <p class="section-subtitle">Get in touch with us today to discuss your project. We're here to answer any questions and help you bring your ideas to life.</p>
+            </div>
+            
+            <div class="contact-section">
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Phone</h4>
+                            <p>0768658484<br>0976760537</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>WhatsApp</h4>
+                            <p>0768658484</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Email</h4>
+                            <p>bufferzone802@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h4>Business Hours</h4>
+                            <p>Mon-Fri: 8AM-6PM<br>Sat: 9AM-1PM</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="https://facebook.com" class="social-link facebook" target="_blank">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="https://instagram.com" class="social-link instagram" target="_blank">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://wa.me/0768658484" class="social-link whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://tiktok.com" class="social-link tiktok" target="_blank">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-logo">BUFFER ZONE</div>
+            <p>Where pixels and code create magic. Your all-in-one go-to company for all your digital and technical services.</p>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#services">Services</a>
+                <a href="#founder">Founder</a>
+                <a href="#portfolio">Portfolio</a>
+                <a href="#about">About</a>
+                <a href="#contact">Contact</a>
+            </div>
+            <p>&copy; 2023 Buffer Zone. All rights reserved. | Designed with precision and innovation.</p>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================
+        // ENHANCED LOADING SCREEN WITH PROGRESSIVE LOADING
+        // ============================================
+        const loadingScreen = document.getElementById('loadingScreen');
+        const loadingProgress = document.querySelector('.loading-progress');
+        
+        // Simulate progressive loading with multiple steps
+        let progress = 0;
+        const progressInterval = setInterval(() => {
+            progress += Math.random() * 15;
+            if (progress > 90) {
+                progress = 90;
+            }
+            loadingProgress.style.width = `${progress}%`;
+        }, 200);
+        
+        // Complete loading after 2.5 seconds
+        setTimeout(() => {
+            clearInterval(progressInterval);
+            loadingProgress.style.width = '100%';
+            
+            // Add completion animation
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+                
+                // Trigger initial animations
+                animateOnScroll();
+            }, 500);
+        }, 2500);
+
+        // ============================================
+        // ENHANCED NAVIGATION WITH PARALLAX EFFECTS
+        // ============================================
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        const mainNav = document.getElementById('mainNav');
+        const openModalBtn = document.getElementById('openModalBtn');
+        
+        // Mobile menu toggle with enhanced animations
+        mobileMenuBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isActive = navLinks.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            
+            // Animate icon
+            if (isActive) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+                mobileMenuBtn.style.transform = 'rotate(180deg) scale(1.1)';
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+                mobileMenuBtn.style.transform = 'rotate(0) scale(1)';
+            }
+            
+            // Add ripple effect
+            const ripple = document.createElement('span');
+            const rect = mobileMenuBtn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(0, 122, 255, 0.2);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                width: ${size}px;
+                height: ${size}px;
+                top: ${y}px;
+                left: ${x}px;
+            `;
+            
+            mobileMenuBtn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                // Add click animation
+                link.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    link.style.transform = '';
+                }, 200);
+                
+                // Close menu
+                navLinks.classList.remove('active');
+                mobileMenuBtn.classList.remove('active');
+                mobileMenuBtn.querySelector('i').classList.add('fa-bars');
+                mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.style.transform = 'rotate(0) scale(1)';
+                
+                // Smooth scroll to section
+                const targetId = link.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Enhanced Navbar scroll effect with parallax
+        let lastScrollY = window.scrollY;
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+            
+            // Scrolling down
+            if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                mainNav.style.transform = 'translateY(-100%)';
+            } 
+            // Scrolling up
+            else {
+                mainNav.style.transform = 'translateY(0)';
+            }
+            
+            // Add shadow and background effect
+            if (currentScrollY > 50) {
+                mainNav.classList.add('scrolled');
+                mainNav.style.backdropFilter = 'saturate(180%) blur(30px)';
+            } else {
+                mainNav.classList.remove('scrolled');
+                mainNav.style.backdropFilter = 'saturate(180%) blur(20px)';
+            }
+            
+            // Update active nav link with smooth transition
+            const sections = document.querySelectorAll('section');
+            const navLinksList = document.querySelectorAll('.nav-links a');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 150) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinksList.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                    // Add pulse effect to active link
+                    link.style.animation = 'none';
+                    setTimeout(() => {
+                        link.style.animation = 'pulse 2s infinite';
+                    }, 10);
+                }
+            });
+            
+            lastScrollY = currentScrollY;
+            
+            // Parallax effect on hero logo
+            const heroLogo = document.querySelector('.hero-logo-img');
+            if (heroLogo && currentScrollY < 500) {
+                const speed = 0.5;
+                const yPos = -(currentScrollY * speed);
+                heroLogo.style.transform = `translateY(${yPos}px)`;
+            }
+        });
+        
+        // ============================================
+        // ENHANCED MODAL POPUP WITH ANIMATIONS
+        // ============================================
+        const modalOverlay = document.getElementById('modalOverlay');
+        const closeModal = document.getElementById('closeModal');
+        const cancelModal = document.getElementById('cancelModal');
+        const modalCategory = document.getElementById('modalCategory');
+        const modalService = document.getElementById('modalService');
+        const modalServiceDetails = document.getElementById('modalServiceDetails');
+        const modalServiceTitle = document.getElementById('modalServiceTitle');
+        const modalServiceDescription = document.getElementById('modalServiceDescription');
+        const submitModal = document.getElementById('submitModal');
+        const modalDescription = document.getElementById('modalDescription');
+        
+        // Enhanced open modal with animation
+        openModalBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            // Add ripple effect
+            const ripple = document.createElement('span');
+            const rect = openModalBtn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.3);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                width: ${size}px;
+                height: ${size}px;
+                top: ${y}px;
+                left: ${x}px;
+            `;
+            
+            openModalBtn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
+            
+            // Open modal with delay
+            setTimeout(() => {
+                modalOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Animate modal content
+                const modalContent = document.querySelector('.modal-content');
+                modalContent.style.animation = 'none';
+                setTimeout(() => {
+                    modalContent.style.animation = 'modalSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--transition-elastic)';
+                }, 10);
+            }, 300);
+        });
+        
+        // Enhanced close modal function
+        const closeModalFunc = () => {
+            const modalContent = document.querySelector('.modal-content');
+            modalContent.style.animation = 'modalSlideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse';
+            
+            setTimeout(() => {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                modalContent.style.animation = '';
+            }, 300);
+        };
+        
+        closeModal.addEventListener('click', closeModalFunc);
+        cancelModal.addEventListener('click', closeModalFunc);
+        
+        // Close modal when clicking outside with animation
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                closeModalFunc();
+            }
+        });
+        
+        // Close modal with Escape key with animation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModalFunc();
+            }
+        });
+        
+        // ============================================
+        // ENHANCED SERVICE DETAILS IN MODAL
+        // ============================================
+        // Enhanced service details data
+        const serviceData = {
+            'Logo Design & Brand Identity': {
+                title: 'Logo Design & Brand Identity',
+                description: 'We create distinctive logos and comprehensive brand identity systems that communicate your brand values and resonate with your target audience. Our process includes brand discovery, competitive analysis, concept development, and full brand guideline documentation.',
+                timeline: '7-14 days',
+                deliverables: ['Logo variations', 'Brand guidelines', 'Color palette', 'Typography system']
+            },
+            'Website Development': {
+                title: 'Website Development',
+                description: 'We build responsive, SEO-optimized websites that provide exceptional user experiences across all devices. Our development process includes information architecture, wireframing, prototyping, front-end development, back-end integration, and rigorous testing.',
+                timeline: '3-8 weeks',
+                deliverables: ['Fully responsive website', 'SEO optimization', 'Content management system', 'Analytics integration']
+            },
+            'Mobile App Development': {
+                title: 'Mobile App Development',
+                description: 'We develop native and cross-platform mobile applications with intuitive interfaces and robust functionality. Our approach includes user research, feature planning, agile development, quality assurance, and App Store deployment.',
+                timeline: '6-12 weeks',
+                deliverables: ['iOS/Android apps', 'App Store deployment', 'Admin dashboard', 'API integration']
+            },
+            'Technical Support': {
+                title: 'Technical Support',
+                description: 'We provide comprehensive technical support services including troubleshooting, maintenance, and optimization of your IT infrastructure. Our certified technicians offer both remote and on-site support with rapid response times.',
+                timeline: 'Ongoing',
+                deliverables: ['24/7 support', 'Regular maintenance', 'Security updates', 'Performance monitoring']
+            }
+        };
+        
+        // Enhanced update service options based on category
+        modalCategory.addEventListener('change', function() {
+            const category = this.value;
+            
+            // Animate select change
+            this.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            
+            // Clear service options with fade out
+            modalService.style.opacity = '0.5';
+            modalService.style.transform = 'translateX(-10px)';
+            
+            setTimeout(() => {
+                modalService.innerHTML = '<option value="">Choose a service</option>';
+                modalServiceDetails.classList.remove('active');
+                modalService.style.opacity = '1';
+                modalService.style.transform = 'translateX(0)';
+                
+                // Add services based on category with enhanced options
+                if (category === 'Graphic Design') {
+                    modalService.innerHTML += `
+                        <option value="Logo Design & Brand Identity">Logo Design & Brand Identity</option>
+                        <option value="Social Media Graphics">Social Media Graphics & Ads</option>
+                        <option value="UI/UX Design">UI/UX Design for Websites & Apps</option>
+                        <option value="Print Design">Business Cards, Flyers & Print Materials</option>
+                        <option value="Brand Identity">Complete Brand Identity Package</option>
+                    `;
+                } else if (category === 'Developer Services') {
+                    modalService.innerHTML += `
+                        <option value="Website Development">Website Development</option>
+                        <option value="Mobile App Development">Mobile App Development</option>
+                        <option value="E-commerce Development">E-commerce Website Development</option>
+                        <option value="Software Development">Custom Software Development</option>
+                        <option value="API Development">API Development & Integration</option>
+                    `;
+                } else if (category === 'Technical Services') {
+                    modalService.innerHTML += `
+                        <option value="Technical Support">Technical Support & Troubleshooting</option>
+                        <option value="Network Setup">Network Setup & Configuration</option>
+                        <option value="System Maintenance">System Maintenance & Monitoring</option>
+                        <option value="Hardware Repair">Computer & Hardware Repair</option>
+                        <option value="Cybersecurity">Cybersecurity Solutions</option>
+                    `;
+                } else if (category === 'Multiple Services') {
+                    modalService.innerHTML += `
+                        <option value="Complete Digital Package">Complete Digital Transformation Package</option>
+                        <option value="Business Startup Package">Business Startup Package</option>
+                        <option value="Ongoing Support Package">Ongoing Support & Maintenance Package</option>
+                        <option value="Brand + Website Package">Brand + Website Package</option>
+                    `;
+                }
+            }, 300);
+        });
+        
+        // Enhanced show service details when service is selected
+        modalService.addEventListener('change', function() {
+            const selectedService = this.value;
+            
+            // Animate select change
+            this.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            
+            if (selectedService && serviceData[selectedService]) {
+                const service = serviceData[selectedService];
+                modalServiceTitle.textContent = service.title;
+                modalServiceDescription.textContent = service.description;
+                
+                // Update pricing details
+                const pricingList = document.querySelector('.service-pricing ul');
+                if (service.deliverables) {
+                    pricingList.innerHTML = `
+                        <li><i class="fas fa-check-circle"></i> 50% down payment required to start project</li>
+                        <li><i class="fas fa-check-circle"></i> Final payment upon completion and delivery</li>
+                        <li><i class="fas fa-check-circle"></i> Prices negotiable based on project scope</li>
+                        <li><i class="fas fa-check-circle"></i> Estimated timeline: ${service.timeline}</li>
+                        <li><i class="fas fa-check-circle"></i> Includes: ${service.deliverables.join(', ')}</li>
+                    `;
+                }
+                
+                // Animate in service details
+                modalServiceDetails.style.display = 'none';
+                setTimeout(() => {
+                    modalServiceDetails.style.display = 'block';
+                    modalServiceDetails.classList.add('active');
+                    
+                    // Add entrance animation
+                    modalServiceDetails.style.animation = 'none';
+                    setTimeout(() => {
+                        modalServiceDetails.style.animation = 'slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both';
+                    }, 10);
+                }, 300);
+                
+            } else if (selectedService) {
+                // For services not in the predefined data
+                modalServiceTitle.textContent = selectedService;
+                modalServiceDescription.textContent = 'This service is customized based on your specific requirements. We will conduct a detailed consultation to understand your needs and provide a tailored solution that meets your objectives and budget. Contact us for a comprehensive proposal.';
+                
+                // Animate in service details
+                modalServiceDetails.style.display = 'none';
+                setTimeout(() => {
+                    modalServiceDetails.style.display = 'block';
+                    modalServiceDetails.classList.add('active');
+                    
+                    // Add entrance animation
+                    modalServiceDetails.style.animation = 'none';
+                    setTimeout(() => {
+                        modalServiceDetails.style.animation = 'slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both';
+                    }, 10);
+                }, 300);
+            } else {
+                // Animate out service details
+                modalServiceDetails.style.animation = 'slideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse';
+                setTimeout(() => {
+                    modalServiceDetails.classList.remove('active');
+                    modalServiceDetails.style.animation = '';
+                }, 300);
+            }
+        });
+        
+        // Enhanced submit modal form via WhatsApp
+        submitModal.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const category = modalCategory.value;
+            const service = modalService.value;
+            const description = modalDescription.value;
+            
+            if (!category || !service) {
+                // Animate error
+                const selectElements = [modalCategory, modalService].filter(el => !el.value);
+                selectElements.forEach(el => {
+                    el.style.animation = 'none';
+                    setTimeout(() => {
+                        el.style.animation = 'shake 0.5s';
+                        el.style.borderColor = 'var(--accent-red)';
+                        
+                        setTimeout(() => {
+                            el.style.animation = '';
+                            el.style.borderColor = '';
+                        }, 500);
+                    }, 10);
+                });
+                
+                // Show notification
+                showNotification('Please select a category and service before requesting a quote.', 'error');
+                return;
+            }
+            
+            // Add click animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            
+            // Create WhatsApp message
+            const phoneNumber = '0768658484';
+            const message = `Hello Buffer Zone! I'm interested in your services.\n\nCategory: ${category}\nService: ${service}\n\nProject Details: ${description}\n\nPlease contact me to discuss further and provide a quote.`;
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+            
+            // Show success notification
+            showNotification('Redirecting to WhatsApp...', 'success');
+            
+            // Open WhatsApp in new tab and close modal with delay
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                closeModalFunc();
+                
+                // Reset form
+                modalCategory.value = '';
+                modalService.value = '';
+                modalDescription.value = '';
+                modalServiceDetails.classList.remove('active');
+            }, 1000);
+        });
+        
+        // ============================================
+        // ENHANCED PORTFOLIO FILTERING WITH ANIMATIONS
+        // ============================================
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                // Add ripple effect
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(0, 122, 255, 0.1);
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    top: ${y}px;
+                    left: ${x}px;
+                `;
+                
+                button.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+                
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.style.transform = 'translateY(0)';
+                });
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                button.style.transform = 'translateY(-4px)';
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                // Animate portfolio items
+                portfolioItems.forEach((item, index) => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        // Show item with staggered animation
+                        setTimeout(() => {
+                            item.style.display = 'block';
+                            item.style.animation = 'none';
+                            setTimeout(() => {
+                                item.style.animation = `slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s both`;
+                            }, 10);
+                        }, 100);
+                    } else {
+                        // Hide item with fade out
+                        item.style.animation = 'slideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                            item.style.animation = '';
+                        }, 300);
+                    }
+                });
+            });
+        });
+        
+        // ============================================
+        // ENHANCED SCROLL ANIMATIONS WITH INTERSECTION OBSERVER
+        // ============================================
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    
+                    // Add different animations based on element type
+                    if (entry.target.classList.contains('service-card')) {
+                        entry.target.style.animation = `slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both`;
+                    } else if (entry.target.classList.contains('portfolio-item')) {
+                        entry.target.style.animation = `slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both`;
+                    } else if (entry.target.classList.contains('testimonial-card')) {
+                        entry.target.style.animation = `slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both`;
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-section, .founder-container').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Initial animation check
+        const animateOnScroll = () => {
+            const elements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-section, .founder-container');
+            
+            elements.forEach((element, index) => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    setTimeout(() => {
+                        element.classList.add('animated');
+                        element.style.animation = `slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s both`;
+                    }, 100);
+                }
+            });
+        };
+        
+        // ============================================
+        // ENHANCED SMOOTH SCROLLING WITH OFFSET
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    // Calculate offset based on screen size
+                    const offset = window.innerWidth < 768 ? 70 : 90;
+                    
+                    window.scrollTo({
+                        top: targetElement.offsetTop - offset,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Add visual feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                }
+            });
+        });
+        
+        // ============================================
+        // ENHANCED VIDEO CONTROLS WITH CUSTOM PLAYER
+        // ============================================
+        document.querySelectorAll('video').forEach(video => {
+            // Add custom controls
+            video.addEventListener('click', function() {
+                if (this.paused) {
+                    this.play();
+                    // Add play animation
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                } else {
+                    this.pause();
+                    // Add pause animation
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                }
+            });
+            
+            // Add hover effect
+            video.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            video.addEventListener('mouseleave', function() {
+                this.style.transform = '';
+            });
+        });
+        
+        // ============================================
+        // NOTIFICATION SYSTEM
+        // ============================================
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--accent-green)' : type === 'error' ? 'var(--accent-red)' : 'var(--accent-blue)'};
+                color: white;
+                padding: var(--space-md) var(--space-lg);
+                border-radius: var(--radius-medium);
+                box-shadow: var(--shadow-medium);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                gap: var(--space-sm);
+                transform: translateX(100%);
+                opacity: 0;
+                transition: transform 0.3s, opacity 0.3s;
+                max-width: 300px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+                notification.style.opacity = '1';
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // ============================================
+        // ENHANCED HOVER EFFECTS WITH 3D TRANSFORMS
+        // ============================================
+        document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item').forEach(element => {
+            element.addEventListener('mouseenter', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Calculate rotation based on mouse position
+                const rotateY = ((x - rect.width / 2) / rect.width) * 10;
+                const rotateX = ((rect.height / 2 - y) / rect.height) * 10;
+                
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+                this.style.zIndex = '10';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                this.style.zIndex = '1';
+            });
+        });
+        
+        // ============================================
+        // PERFORMANCE OPTIMIZATION WITH DEBOUNCE
+        // ============================================
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(animateOnScroll, 100);
+        });
+        
+        // Lazy load images
+        const images = document.querySelectorAll('img');
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => {
+            img.loading = 'lazy';
+            if (!img.src) {
+                imageObserver.observe(img);
+            }
+        });
+        
+        // ============================================
+        // ADDITIONAL CSS ANIMATIONS
+        // ============================================
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+            
+            .notification {
+                font-family: inherit;
+                font-size: var(--font-size-sm);
+                font-weight: 500;
+            }
+            
+            .loaded {
+                animation: fadeIn 0.5s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // ============================================
+        // INITIALIZE ON LOAD WITH ENHANCED EFFECTS
+        // ============================================
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize animations
+            animateOnScroll();
+            
+            // Set initial modal state with animation
+            setTimeout(() => {
+                modalCategory.value = 'Graphic Design';
+                const event = new Event('change');
+                modalCategory.dispatchEvent(event);
+                
+                setTimeout(() => {
+                    modalService.value = 'Logo Design & Brand Identity';
+                    const serviceEvent = new Event('change');
+                    modalService.dispatchEvent(serviceEvent);
+                }, 300);
+            }, 500);
+            
+            // Add initial animation to hero elements
+            const heroElements = document.querySelectorAll('.hero-text h1, .hero-text .tagline, .payment-notice, .hero-logo');
+            heroElements.forEach((el, index) => {
+                el.style.animation = `slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.2}s both`;
+            });
+            
+            // Initialize 3D effects
+            document.body.classList.add('transform-3d');
+        });
+        
+        // ============================================
+        // MOBILE TOUCH OPTIMIZATIONS
+        // ============================================
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // ============================================
+        // VIEWPORT HEIGHT FIX FOR MOBILE
+        // ============================================
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setVH();
+        window.addEventListener('resize', setVH);
+        
+        // ============================================
+        // ENHANCED IMAGE LOADING WITH PLACEHOLDERS
+        // ============================================
+        document.querySelectorAll('img').forEach(img => {
+            // Add loading animation
+            if (!img.complete) {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                    this.classList.add('loaded');
+                });
+            } else {
+                img.classList.add('loaded');
+            }
+        });
+    </script>
+</body>
+</html>
