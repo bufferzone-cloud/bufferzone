@@ -928,6 +928,19 @@
             transition: transform var(--transition-medium);
         }
 
+        /* Add this to your CSS section */
+.modal-overlay.active {
+    display: flex !important;
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-overlay {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+}
+
         .service-explanation:hover h4 {
             transform: translateX(5px);
         }
@@ -3463,59 +3476,60 @@
             }
         });
         
-        // ============================================
-        // ENHANCED MODAL POPUP WITH ANIMATIONS
-        // ============================================
-        const modalOverlay = document.getElementById('modalOverlay');
-        const closeModal = document.getElementById('closeModal');
-        const cancelModal = document.getElementById('cancelModal');
-        const modalCategory = document.getElementById('modalCategory');
-        const modalService = document.getElementById('modalService');
-        const modalServiceDetails = document.getElementById('modalServiceDetails');
-        const modalServiceTitle = document.getElementById('modalServiceTitle');
-        const modalServiceDescription = document.getElementById('modalServiceDescription');
-        const submitModal = document.getElementById('submitModal');
-        const modalDescription = document.getElementById('modalDescription');
+       // ============================================
+// ENHANCED MODAL POPUP WITH ANIMATIONS
+// ============================================
+const modalOverlay = document.getElementById('modalOverlay');
+const closeModal = document.getElementById('closeModal');
+const cancelModal = document.getElementById('cancelModal');
+const modalCategory = document.getElementById('modalCategory');
+const modalService = document.getElementById('modalService');
+const modalServiceDetails = document.getElementById('modalServiceDetails');
+const modalServiceTitle = document.getElementById('modalServiceTitle');
+const modalServiceDescription = document.getElementById('modalServiceDescription');
+const submitModal = document.getElementById('submitModal');
+const modalDescription = document.getElementById('modalDescription');
+
+// Enhanced open modal with animation
+openModalBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Add ripple effect
+    const ripple = document.createElement('span');
+    const rect = openModalBtn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(0);
+        animation: ripple-animation 0.6s linear;
+        width: ${size}px;
+        height: ${size}px;
+        top: ${y}px;
+        left: ${x}px;
+    `;
+    
+    openModalBtn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+    
+    // Open modal with delay
+    setTimeout(() => {
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
         
-        // Enhanced open modal with animation
-        openModalBtn.addEventListener('click', (e) => {
-            e.stopPropagation();
-            
-            // Add ripple effect
-            const ripple = document.createElement('span');
-            const rect = openModalBtn.getBoundingClientRect();
-            const size = Math.max(rect.width, rect.height);
-            const x = e.clientX - rect.left - size / 2;
-            const y = e.clientY - rect.top - size / 2;
-            
-            ripple.style.cssText = `
-                position: absolute;
-                border-radius: 50%;
-                background: rgba(255, 255, 255, 0.3);
-                transform: scale(0);
-                animation: ripple-animation 0.6s linear;
-                width: ${size}px;
-                height: ${size}px;
-                top: ${y}px;
-                left: ${x}px;
-            `;
-            
-            openModalBtn.appendChild(ripple);
-            setTimeout(() => ripple.remove(), 600);
-            
-            // Open modal with delay
-            setTimeout(() => {
-                modalOverlay.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                
-                // Animate modal content
-                const modalContent = document.querySelector('.modal-content');
-                modalContent.style.animation = 'none';
-                setTimeout(() => {
-                    modalContent.style.animation = 'modalSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--transition-elastic)';
-                }, 10);
-            }, 300);
-        });
+        // Animate modal content
+        const modalContent = document.querySelector('.modal-content');
+        modalContent.style.animation = 'none';
+        setTimeout(() => {
+            modalContent.style.animation = 'modalSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--transition-elastic)';
+        }, 10);
+    }, 300);
+});
         
         // Enhanced close modal function
         const closeModalFunc = () => {
@@ -4139,4 +4153,5 @@
         });
     </script>
 </body>
+
 </html>
