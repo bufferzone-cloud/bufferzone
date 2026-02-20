@@ -1,769 +1,652 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Buffer Zone · iOS app</title>
-    <!-- SF Pro & iOS friendly fonts -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- iOS web app meta (full‑screen when added to home screen) -->
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Buffer Zone">
-    <style>
-        /* === iOS DARK/LIGHT COMPATIBLE VARIABLES – SF PRO ALL THE WAY === */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Buffer Zone · iOS production</title>
+  <!-- Apple touch icons & PWA ready -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Buffer Zone">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007AFF'/%3E%3Ctext x='50' y='70' font-size='50' text-anchor='middle' fill='white' font-family='system-ui'%3EBZ%3C/text%3E%3C/svg%3E">
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* === iOS system fonts + robust design system === */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    }
 
-        :root {
-            --ios-bg: #f2f2f7;
-            --ios-card-bg: rgba(255,255,255,0.9);
-            --ios-secondary-bg: #ffffff;
-            --ios-label: #1c1c1e;
-            --ios-secondary-label: #3a3a3c;
-            --ios-tertiary-label: #8e8e93;
-            --ios-separator: rgba(60,60,67,0.08);
-            --ios-tint: #007aff;
-            --ios-tint-dark: #0051b0;
-            --ios-green: #34c759;
-            --ios-red: #ff3b30;
-            --ios-orange: #ff9500;
-            --ios-purple: #5856d6;
-            --ios-indigo: #5e5ce6;
-            --ios-safe-top: env(safe-area-inset-top, 20px);
-            --ios-safe-bottom: env(safe-area-inset-bottom, 0px);
-            --blur-bg: rgba(255,255,255,0.7);
-            --card-radius: 20px;
-        }
+    :root {
+      --bg: #f8f9fc;
+      --surface: rgba(255,255,255,0.9);
+      --surface-solid: #ffffff;
+      --label: #1c1c1e;
+      --secondary-label: #3a3a3c;
+      --tertiary-label: #8e8e93;
+      --separator: rgba(60,60,67,0.08);
+      --tint: #007aff;
+      --tint-dark: #0051b0;
+      --green: #34c759;
+      --purple: #5856d6;
+      --orange: #ff9500;
+      --red: #ff3b30;
+      --indigo: #5e5ce6;
+      --safe-top: env(safe-area-inset-top, 20px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
+      --nav-height: 60px;
+      --card-radius: 24px;
+      --blur: saturate(180%) blur(30px);
+    }
 
-        /* Dark mode support – iOS automatically switches, but we define both */
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --ios-bg: #000000;
-                --ios-card-bg: rgba(30,30,32,0.9);
-                --ios-secondary-bg: #1c1c1e;
-                --ios-label: #ffffff;
-                --ios-secondary-label: #aeaeae;
-                --ios-tertiary-label: #636366;
-                --ios-separator: rgba(84,84,88,0.2);
-                --blur-bg: rgba(30,30,32,0.8);
-            }
-        }
+    body {
+      background-color: var(--bg);
+      color: var(--label);
+      line-height: 1.4;
+      font-size: 17px;
+      padding-top: calc(var(--nav-height) + var(--safe-top));
+      padding-bottom: var(--safe-bottom);
+      min-height: 100vh;
+    }
 
-        body {
-            background-color: var(--ios-bg);
-            color: var(--ios-label);
-            line-height: 1.4;
-            font-weight: 400;
-            font-size: 17px; /* iOS base */
-            padding-top: calc(52px + var(--ios-safe-top)); /* nav space */
-            padding-bottom: var(--ios-safe-bottom);
-            min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-        }
+    /* === fixed navigation (iOS large title style) === */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: var(--surface);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      padding: var(--safe-top) 20px 10px;
+      border-bottom: 1px solid var(--separator);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: calc(var(--nav-height) + var(--safe-top));
+    }
 
-        /* === iOS style navigation bar (large title style) === */
-        .nav-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: var(--blur-bg);
-            backdrop-filter: saturate(180%) blur(30px);
-            -webkit-backdrop-filter: saturate(180%) blur(30px);
-            padding: var(--ios-safe-top) 20px 10px;
-            border-bottom: 1px solid var(--ios-separator);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-logo img {
+      height: 36px;
+      width: auto;
+      border-radius: 10px;
+    }
+    .nav-logo span {
+      font-weight: 700;
+      font-size: 22px;
+      background: linear-gradient(145deg, var(--tint), var(--purple));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.3px;
+    }
 
-        .nav-title {
-            font-size: 28px;
-            font-weight: 700;
-            letter-spacing: -0.3px;
-            background: linear-gradient(145deg, var(--ios-tint), var(--ios-purple));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
+    .nav-action {
+      background: var(--tint);
+      border: none;
+      color: white;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 12px rgba(0,122,255,0.3);
+      transition: 0.2s;
+    }
+    .nav-action:active { transform: scale(0.96); background: var(--tint-dark); }
 
-        .nav-action {
-            background: var(--ios-tint);
-            color: white;
-            border: none;
-            padding: 8px 18px;
-            border-radius: 40px;
-            font-size: 16px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 4px 12px rgba(0,122,255,0.3);
-            transition: transform 0.2s cubic-bezier(0.2, 0.9, 0.4, 1);
-        }
+    /* === main scroll container === */
+    .content {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 16px 20px 30px;
+    }
 
-        .nav-action:active {
-            transform: scale(0.96);
-            background: var(--ios-tint-dark);
-        }
+    /* === hero === */
+    .hero {
+      margin-bottom: 28px;
+    }
+    .hero h1 {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -0.8px;
+      line-height: 1.1;
+    }
+    .hero .tagline {
+      color: var(--secondary-label);
+      margin-top: 8px;
+      font-size: 19px;
+    }
 
-        /* === main scroll container (iOS feels) === */
-        .content {
-            padding: 16px 18px 30px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+    /* === cards (iOS style) === */
+    .card {
+      background: var(--surface);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border-radius: var(--card-radius);
+      border: 1px solid var(--separator);
+      padding: 22px 20px;
+      margin-bottom: 18px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+    }
 
-        /* === service cards – SF style === */
-        .section-title {
-            font-size: 22px;
-            font-weight: 700;
-            margin: 32px 0 12px 6px;
-            letter-spacing: -0.2px;
-        }
+    .card-header {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .icon-circle {
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, var(--tint), var(--purple));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 26px;
+    }
+    .card-header h3 {
+      font-size: 22px;
+      font-weight: 680;
+    }
 
-        .service-card {
-            background: var(--ios-card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: var(--card-radius);
-            margin-bottom: 18px;
-            padding: 20px 18px;
-            border: 1px solid var(--ios-separator);
-            box-shadow: 0 4px 18px rgba(0,0,0,0.02);
-            transition: all 0.2s ease;
-        }
+    .feature-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 16px 0;
+    }
+    .pill {
+      background: var(--surface-solid);
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--secondary-label);
+      border: 0.5px solid var(--separator);
+    }
 
-        .service-card:active {
-            background: var(--ios-secondary-bg);
-            transform: scale(0.99);
-        }
+    .btn-primary {
+      background: var(--tint);
+      border: none;
+      color: white;
+      padding: 14px 24px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 18px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+      transition: 0.2s;
+      box-shadow: 0 6px 16px rgba(0,122,255,0.25);
+    }
+    .btn-primary:active { transform: scale(0.97); opacity: 0.9; }
 
-        .card-header {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            margin-bottom: 14px;
-        }
+    .btn-whatsapp-large {
+      background: var(--green);
+      box-shadow: 0 6px 20px rgba(52,199,89,0.3);
+    }
 
-        .icon-badge {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            background: linear-gradient(145deg, var(--ios-tint), var(--ios-purple));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 22px;
-            box-shadow: 0 8px 16px rgba(0,122,255,0.2);
-        }
+    /* === founder block === */
+    .founder-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.7), rgba(255,255,255,0.9));
+      border-left: 6px solid var(--green);
+      border-radius: 24px;
+      padding: 24px;
+      margin: 30px 0;
+    }
 
-        .card-header h3 {
-            font-size: 20px;
-            font-weight: 640;
-            flex: 1;
-        }
+    /* === portfolio grid === */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .portfolio-item {
+      background: var(--surface);
+      border-radius: 20px;
+      overflow: hidden;
+      border: 1px solid var(--separator);
+    }
+    .portfolio-media {
+      height: 140px;
+      background: #e9e9ef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
+    }
+    .portfolio-info {
+      padding: 12px;
+    }
+    .portfolio-info h4 { font-size: 16px; font-weight: 600; }
 
-        .feature-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 12px 0 16px;
-        }
+    /* === contact cells === */
+    .contact-cell {
+      background: var(--surface);
+      border-radius: 20px;
+      padding: 18px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      border: 1px solid var(--separator);
+      cursor: pointer;
+    }
+    .contact-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 30px;
+      background: var(--tint);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+    }
 
-        .feature-tag {
-            background: var(--ios-secondary-bg);
-            padding: 6px 14px;
-            border-radius: 40px;
-            font-size: 14px;
-            font-weight: 500;
-            color: var(--ios-secondary-label);
-            border: 0.5px solid var(--ios-separator);
-        }
+    /* === modal (iOS sheet) === */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 1000;
+      display: none;
+      align-items: flex-end;
+      justify-content: center;
+      padding: 0 16px 30px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-sheet {
+      background: var(--surface-solid);
+      width: 100%;
+      max-width: 500px;
+      border-radius: 32px 32px 20px 20px;
+      padding: 26px 22px 30px;
+      animation: slideUp 0.25s ease;
+    }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal-title { font-size: 26px; font-weight: 700; margin-bottom: 20px; }
+    .modal-field { margin-bottom: 22px; }
+    .modal-field label { font-weight: 600; margin-bottom: 6px; display: block; color: var(--secondary-label); }
+    .modal-field select, .modal-field textarea {
+      width: 100%;
+      padding: 16px 18px;
+      background: #f2f2f7;
+      border: 1px solid var(--separator);
+      border-radius: 20px;
+      font-size: 17px;
+      appearance: none;
+    }
+    .service-preview {
+      background: #f2f2f7;
+      border-radius: 20px;
+      padding: 18px;
+      margin: 16px 0;
+      border-left: 4px solid var(--tint);
+    }
+    .modal-actions {
+      display: flex;
+      gap: 14px;
+      margin-top: 30px;
+    }
+    .modal-btn {
+      flex: 1;
+      padding: 16px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 18px;
+      border: 1px solid var(--separator);
+      background: white;
+      color: var(--label);
+    }
+    .modal-btn.primary { background: var(--green); color: white; border: none; }
 
-        .select-btn {
-            background: var(--ios-tint);
-            border: none;
-            color: white;
-            padding: 10px 22px;
-            border-radius: 40px;
-            font-size: 16px;
-            font-weight: 600;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 8px;
-            transition: 0.15s;
-            box-shadow: 0 4px 10px rgba(0,122,255,0.2);
-        }
+    /* === footer === */
+    .footer {
+      text-align: center;
+      color: var(--tertiary-label);
+      font-size: 14px;
+      padding: 32px 0 16px;
+    }
 
-        .select-btn:active {
-            opacity: 0.7;
-            transform: scale(0.97);
-        }
+    /* === loading screen (minimal) === */
+    .loading-screen {
+      position: fixed; width: 100%; height: 100%; background: white; z-index: 9999;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.4s;
+    }
+    .loading-screen.hidden { opacity: 0; pointer-events: none; }
+    .loading-logo { width: 100px; height: 100px; border-radius: 30px; background: #007aff; margin-bottom: 20px; display: flex; align-items: center; justify-content: center; color: white; font-size: 40px; }
+    .loading-progress { width: 180px; height: 4px; background: #e9e9ef; border-radius: 10px; margin-top: 20px; overflow: hidden; }
+    .loading-progress-bar { height: 100%; width: 0%; background: var(--tint); transition: width 0.1s; }
 
-        .select-btn i {
-            font-size: 18px;
-        }
-
-        /* founder / quote block */
-        .founder-block {
-            background: var(--ios-card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: var(--card-radius);
-            padding: 22px;
-            margin: 30px 0 20px;
-            border-left: 4px solid var(--ios-green);
-            border: 1px solid var(--ios-separator);
-        }
-
-        .founder-name {
-            font-weight: 700;
-            font-size: 18px;
-            color: var(--ios-tint);
-            margin: 8px 0 4px;
-        }
-
-        .testimonial-compact {
-            font-style: italic;
-            color: var(--ios-secondary-label);
-            padding: 16px 0 8px;
-            border-top: 1px solid var(--ios-separator);
-            margin-top: 20px;
-        }
-
-        /* contact cells */
-        .contact-row {
-            background: var(--ios-card-bg);
-            border-radius: 16px;
-            padding: 16px 18px;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            border: 1px solid var(--ios-separator);
-        }
-
-        .contact-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 30px;
-            background: var(--ios-tint);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .whatsapp-btn-large {
-            background: var(--ios-green);
-            color: white;
-            border: none;
-            padding: 16px;
-            border-radius: 30px;
-            font-size: 20px;
-            font-weight: 700;
-            margin: 24px 0 10px;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            box-shadow: 0 8px 20px rgba(52,199,89,0.3);
-        }
-
-        /* === MODAL (action sheet style) === */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.4);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            z-index: 1000;
-            display: none;
-            align-items: flex-end;
-            justify-content: center;
-            padding: 0 16px 30px;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-sheet {
-            background: var(--ios-secondary-bg);
-            width: 100%;
-            max-width: 500px;
-            border-radius: 28px 28px 12px 12px;
-            padding: 24px 20px 30px;
-            box-shadow: 0 -8px 30px rgba(0,0,0,0.2);
-            animation: slideUp 0.3s ease;
-        }
-
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-
-        .modal-title {
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-
-        .modal-field {
-            margin-bottom: 24px;
-        }
-
-        .modal-field label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--ios-secondary-label);
-        }
-
-        .modal-field select, .modal-field textarea {
-            width: 100%;
-            padding: 16px 18px;
-            background: var(--ios-bg);
-            border: 1px solid var(--ios-separator);
-            border-radius: 16px;
-            font-size: 17px;
-            color: var(--ios-label);
-            appearance: none;
-        }
-
-        .service-detail-box {
-            background: var(--ios-bg);
-            border-radius: 20px;
-            padding: 18px;
-            margin: 8px 0 18px;
-            border-left: 5px solid var(--ios-tint);
-        }
-
-        .modal-actions {
-            display: flex;
-            gap: 12px;
-            margin-top: 30px;
-        }
-
-        .modal-btn {
-            flex: 1;
-            padding: 16px 0;
-            border-radius: 40px;
-            font-weight: 600;
-            font-size: 18px;
-            border: none;
-            background: var(--ios-card-bg);
-            color: var(--ios-label);
-            border: 1px solid var(--ios-separator);
-        }
-
-        .modal-btn.primary {
-            background: var(--ios-green);
-            color: white;
-            border: none;
-        }
-
-        .close-modal {
-            background: none;
-            border: none;
-            font-size: 24px;
-            float: right;
-        }
-
-        /* footer */
-        .footer-note {
-            text-align: center;
-            color: var(--ios-tertiary-label);
-            font-size: 14px;
-            padding: 30px 0 10px;
-        }
-
-        /* placeholder for missing images (all vector) */
-        .placeholder-img {
-            background: linear-gradient(145deg, #c6e0ff, #a0c8ff);
-            border-radius: 30px;
-            width: 100%;
-            height: 150px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            color: white;
-            margin: 10px 0;
-        }
-    </style>
+    /* image placeholders (all images replaced with inline svg via js) */
+    img:not([src*="data"]) { background: #d9d9e3; border-radius: 16px; object-fit: cover; min-height: 40px; }
+  </style>
 </head>
 <body>
-    <!-- iOS style fixed top bar -->
-    <div class="nav-bar">
-        <span class="nav-title">Buffer Zone</span>
-        <button class="nav-action" id="quickQuoteBtn">
-            <i class="fab fa-whatsapp"></i> Order
-        </button>
+  <!-- loading screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-logo"><i class="fas fa-bolt"></i></div>
+    <div style="font-size: 22px; font-weight: 600;">Buffer Zone</div>
+    <div class="loading-progress"><div class="loading-progress-bar" id="loadingProgress"></div></div>
+  </div>
+
+  <!-- navigation -->
+  <div class="nav">
+    <div class="nav-logo">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='18' fill='%23007AFF'/%3E%3Ctext x='20' y='28' font-size='20' text-anchor='middle' fill='white' font-family='system-ui'%3EBZ%3C/text%3E%3C/svg%3E" alt="logo">
+      <span>BUFFER ZONE</span>
+    </div>
+    <button class="nav-action" id="openModalBtn"><i class="fab fa-whatsapp"></i> Order</button>
+  </div>
+
+  <div class="content">
+    <!-- hero -->
+    <div class="hero">
+      <h1>Where pixels & code create magic.</h1>
+      <div class="tagline">Your all-in-one digital & technical services</div>
     </div>
 
-    <div class="content">
-        <!-- hero simplified (iOS large welcome) -->
-        <div style="margin: 10px 0 20px;">
-            <h1 style="font-size: 36px; font-weight: 700; letter-spacing: -0.5px;">Where pixels<br> & code create magic.</h1>
-            <p style="color: var(--ios-secondary-label); margin-top: 8px;">Pick a service, tap order, we’ll chat on WhatsApp.</p>
-        </div>
-
-        <!-- 50% down payment notice card -->
-        <div class="service-card" style="border-left: 4px solid var(--ios-orange);">
-            <div style="display: flex; gap: 14px;">
-                <i class="fas fa-handshake" style="font-size: 32px; color: var(--ios-orange);"></i>
-                <div><strong style="font-size: 18px;">Project initiation</strong><br>50% down payment, balance on delivery. Prices negotiable.</div>
-            </div>
-        </div>
-
-        <!-- GRAPHIC DESIGN SECTION (iOS style) -->
-        <div class="section-title">🎨 Graphic design</div>
-        <div class="service-card" id="service-graphic">
-            <div class="card-header">
-                <div class="icon-badge"><i class="fas fa-paintbrush"></i></div>
-                <h3>Brand & print</h3>
-            </div>
-            <div class="feature-tags">
-                <span class="feature-tag">Logo</span><span class="feature-tag">Flyers</span><span class="feature-tag">Social</span><span class="feature-tag">UI/UX</span><span class="feature-tag">Packaging</span>
-            </div>
-            <button class="select-btn" data-category="Graphic Design" data-service="Full graphic design (logo, flyers, branding)">
-                <i class="fab fa-whatsapp"></i> Select & order
-            </button>
-        </div>
-
-        <!-- DEVELOPER SERVICES -->
-        <div class="section-title">💻 Developer</div>
-        <div class="service-card" id="service-dev">
-            <div class="card-header">
-                <div class="icon-badge"><i class="fas fa-code"></i></div>
-                <h3>Web · apps · systems</h3>
-            </div>
-            <div class="feature-tags">
-                <span class="feature-tag">Website</span><span class="feature-tag">E‑commerce</span><span class="feature-tag">Mobile app</span><span class="feature-tag">API</span><span class="feature-tag">POS</span>
-            </div>
-            <button class="select-btn" data-category="Developer Services" data-service="Custom development (web/app/system)">
-                <i class="fab fa-whatsapp"></i> Select & order
-            </button>
-        </div>
-
-        <!-- TECHNICAL SERVICES -->
-        <div class="section-title">🔧 Technical</div>
-        <div class="service-card" id="service-tech">
-            <div class="card-header">
-                <div class="icon-badge"><i class="fas fa-tools"></i></div>
-                <h3>IT support & repairs</h3>
-            </div>
-            <div class="feature-tags">
-                <span class="feature-tag">Repair</span><span class="feature-tag">Network</span><span class="feature-tag">CCTV</span><span class="feature-tag">Backup</span><span class="feature-tag">Maintenance</span>
-            </div>
-            <button class="select-btn" data-category="Technical Services" data-service="IT support / repair / setup">
-                <i class="fab fa-whatsapp"></i> Select & order
-            </button>
-        </div>
-
-        <!-- Founder compact -->
-        <div class="founder-block">
-            <i class="fas fa-quote-left" style="color: var(--ios-green); opacity: 0.4; font-size: 40px;"></i>
-            <p style="font-weight: 500;">Technology should spark growth, creativity and possibility. We craft digital experiences that balance innovation with elegance.</p>
-            <div class="founder-name">Jubel Mobela – Founder</div>
-        </div>
-
-        <!-- quick portfolio showcase (icons only) -->
-        <div style="display: flex; gap: 12px; margin: 20px 0;">
-            <div style="flex:1; background: var(--ios-card-bg); border-radius: 20px; padding: 20px 8px; text-align: center;"><i class="fas fa-mug-hot fa-2x" style="color: var(--ios-tint);"></i><br>Cafe app</div>
-            <div style="flex:1; background: var(--ios-card-bg); border-radius: 20px; padding: 20px 8px; text-align: center;"><i class="fas fa-car fa-2x" style="color: var(--ios-purple);"></i><br>Ride hailing</div>
-            <div style="flex:1; background: var(--ios-card-bg); border-radius: 20px; padding: 20px 8px; text-align: center;"><i class="fas fa-camera fa-2x" style="color: var(--ios-green);"></i><br>CCTV setup</div>
-        </div>
-
-        <!-- Testimonial snippet -->
-        <div class="testimonial-compact">
-            <i class="fas fa-star" style="color: var(--ios-orange);"></i> “Buffer Zone transformed our brand. Sales increased 40%!” – Mary N.
-        </div>
-
-        <!-- contact cells (direct actions) -->
-        <div class="contact-row" onclick="window.open('https://wa.me/0768658484', '_blank')" style="cursor: pointer;">
-            <div class="contact-icon" style="background: var(--ios-green);"><i class="fab fa-whatsapp"></i></div>
-            <div><strong>Chat on WhatsApp</strong><br>0768658484</div>
-        </div>
-        <div class="contact-row">
-            <div class="contact-icon" style="background: var(--ios-tint);"><i class="fas fa-phone-alt"></i></div>
-            <div><strong>Call</strong><br>0768658484 / 0976760537</div>
-        </div>
-
-        <!-- big WhatsApp order button (opens modal) -->
-        <button class="whatsapp-btn-large" id="floatingOrderBtn">
-            <i class="fab fa-whatsapp"></i> Request a quote
-        </button>
-
-        <div class="footer-note">
-            © Buffer Zone · digital & technical services
-        </div>
+    <!-- payment notice card -->
+    <div class="card" style="border-left: 5px solid var(--orange);">
+      <div style="display: flex; gap: 14px;">
+        <i class="fas fa-handshake" style="font-size: 34px; color: var(--orange);"></i>
+        <div><strong style="font-size: 20px;">Project initiation</strong><br>50% down payment, balance on delivery. All prices negotiable.</div>
+      </div>
     </div>
 
-    <!-- iOS action sheet MODAL (order form) -->
-    <div class="modal-overlay" id="orderModal">
-        <div class="modal-sheet">
-            <div style="display: flex; justify-content: space-between;">
-                <h2 class="modal-title">New request</h2>
-                <button class="close-modal" id="closeModalBtn"><i class="fas fa-xmark"></i></button>
-            </div>
-
-            <div class="modal-field">
-                <label>Category</label>
-                <select id="modalCategory">
-                    <option value="">Select</option>
-                    <option value="Graphic Design">Graphic Design</option>
-                    <option value="Developer Services">Developer Services</option>
-                    <option value="Technical Services">Technical Services</option>
-                    <option value="Multiple Services">Multiple / package</option>
-                </select>
-            </div>
-
-            <div class="modal-field">
-                <label>Service</label>
-                <select id="modalService">
-                    <option value="">First pick a category</option>
-                </select>
-            </div>
-
-            <div class="modal-field">
-                <label>Project details (optional)</label>
-                <textarea id="modalDescription" rows="3" placeholder="Describe your idea, timeline, budget..."></textarea>
-            </div>
-
-            <!-- dynamic service detail box (filled by JS) -->
-            <div class="service-detail-box" id="serviceDetailBox" style="display: none;">
-                <strong id="detailTitle">Logo & Brand Identity</strong>
-                <p id="detailDesc" style="margin-top: 5px;">Complete brand design with guidelines, color palette, and multiple concepts.</p>
-                <div style="margin-top: 10px;"><i class="fas fa-clock"></i> <span id="detailTimeline">7-14 days</span></div>
-            </div>
-
-            <div class="modal-actions">
-                <button class="modal-btn" id="cancelModal">Cancel</button>
-                <button class="modal-btn primary" id="submitWhatsApp"><i class="fab fa-whatsapp"></i> Send via WA</button>
-            </div>
-        </div>
+    <!-- section: graphic design -->
+    <h2 style="font-size: 26px; font-weight: 700; margin: 32px 0 12px;">🎨 Graphic design</h2>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon-circle"><i class="fas fa-paintbrush"></i></div>
+        <h3>Brand & print</h3>
+      </div>
+      <div class="feature-pills">
+        <span class="pill">Logo</span><span class="pill">Flyers</span><span class="pill">Social media</span><span class="pill">UI/UX</span><span class="pill">Packaging</span><span class="pill">Business cards</span>
+      </div>
+      <button class="btn-primary select-btn" data-category="Graphic Design" data-service="Full graphic design (logo, flyers, branding)"><i class="fab fa-whatsapp"></i> Select & order</button>
     </div>
 
-    <script>
-        (function() {
-            // ----- data for service details
-            const serviceDetailMap = {
-                'Logo Design & Brand Identity': {
-                    title: 'Logo & Brand Identity',
-                    desc: 'Comprehensive brand design with logo variations, guidelines, color palette, typography.',
-                    timeline: '7-14 days'
-                },
-                'Website Development': {
-                    title: 'Website Development',
-                    desc: 'Responsive, SEO‑optimized site with CMS, analytics, and modern stack.',
-                    timeline: '3-8 weeks'
-                },
-                'Mobile App Development': {
-                    title: 'Mobile App Development',
-                    desc: 'Native / cross‑platform app with backend, admin panel, and store deployment.',
-                    timeline: '6-12 weeks'
-                },
-                'Technical Support': {
-                    title: 'Technical Support & Repair',
-                    desc: 'Hardware/software troubleshooting, virus removal, network setup, maintenance.',
-                    timeline: 'Ongoing / 24h response'
-                },
-                'Full graphic design (logo, flyers, branding)': {
-                    title: 'Complete Graphic Design',
-                    desc: 'Logo, flyers, social media assets, brand identity, print materials.',
-                    timeline: '5-10 days'
-                },
-                'Custom development (web/app/system)': {
-                    title: 'Custom Development',
-                    desc: 'Websites, e‑commerce, custom business systems, API integrations.',
-                    timeline: '2-10 weeks (depending on scope)'
-                },
-                'IT support / repair / setup': {
-                    title: 'IT Support & Setup',
-                    desc: 'Computer repair, CCTV installation, network configuration, data recovery.',
-                    timeline: '1-3 days onsite'
-                }
-            };
+    <!-- developer services -->
+    <h2 style="font-size: 26px; font-weight: 700; margin: 32px 0 12px;">💻 Developer</h2>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon-circle"><i class="fas fa-code"></i></div>
+        <h3>Web · apps · systems</h3>
+      </div>
+      <div class="feature-pills">
+        <span class="pill">Website</span><span class="pill">E‑commerce</span><span class="pill">Mobile app</span><span class="pill">API</span><span class="pill">POS</span><span class="pill">Database</span>
+      </div>
+      <button class="btn-primary select-btn" data-category="Developer Services" data-service="Custom development (web/app/system)"><i class="fab fa-whatsapp"></i> Select & order</button>
+    </div>
 
-            const modal = document.getElementById('orderModal');
-            const openModalBtns = [document.getElementById('quickQuoteBtn'), document.getElementById('floatingOrderBtn')];
-            const closeBtn = document.getElementById('closeModalBtn');
-            const cancelBtn = document.getElementById('cancelModal');
-            const categorySelect = document.getElementById('modalCategory');
-            const serviceSelect = document.getElementById('modalService');
-            const detailBox = document.getElementById('serviceDetailBox');
-            const detailTitle = document.getElementById('detailTitle');
-            const detailDesc = document.getElementById('detailDesc');
-            const detailTimeline = document.getElementById('detailTimeline');
-            const modalDesc = document.getElementById('modalDescription');
-            const submitBtn = document.getElementById('submitWhatsApp');
+    <!-- technical services -->
+    <h2 style="font-size: 26px; font-weight: 700; margin: 32px 0 12px;">🔧 Technical</h2>
+    <div class="card">
+      <div class="card-header">
+        <div class="icon-circle"><i class="fas fa-tools"></i></div>
+        <h3>IT support & repairs</h3>
+      </div>
+      <div class="feature-pills">
+        <span class="pill">Computer repair</span><span class="pill">Network</span><span class="pill">CCTV</span><span class="pill">Backup</span><span class="pill">Maintenance</span><span class="pill">Virus removal</span>
+      </div>
+      <button class="btn-primary select-btn" data-category="Technical Services" data-service="IT support / repair / setup"><i class="fab fa-whatsapp"></i> Select & order</button>
+    </div>
 
-            // ---- open modal
-            openModalBtns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
+    <!-- founder -->
+    <div class="founder-card">
+      <i class="fas fa-quote-left" style="font-size: 40px; opacity: 0.2; color: var(--green);"></i>
+      <p style="font-size: 20px; font-weight: 450; margin: 10px 0 16px;">"Technology should spark growth, creativity and possibility. We craft digital experiences that balance innovation with elegance."</p>
+      <div style="font-weight: 700; color: var(--tint);">Jubel Mobela – Founder</div>
+    </div>
 
-            // close modal
-            const closeModal = () => {
-                modal.classList.remove('active');
-                document.body.style.overflow = '';
-            };
-            closeBtn.addEventListener('click', closeModal);
-            cancelBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+    <!-- portfolio quick grid (simulated images) -->
+    <h2 style="font-size: 26px; font-weight: 700; margin: 30px 0 16px;">📸 Recent work</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item"><div class="portfolio-media"><i class="fas fa-mug-hot fa-3x"></i></div><div class="portfolio-info"><h4>Wiza Food Cafe</h4><span class="pill">App</span></div></div>
+      <div class="portfolio-item"><div class="portfolio-media"><i class="fas fa-car fa-3x"></i></div><div class="portfolio-info"><h4>Jubel Ride</h4><span class="pill">App</span></div></div>
+      <div class="portfolio-item"><div class="portfolio-media"><i class="fas fa-paint-brush fa-3x"></i></div><div class="portfolio-info"><h4>Coffee flyer</h4><span class="pill">Design</span></div></div>
+      <div class="portfolio-item"><div class="portfolio-media"><i class="fas fa-camera fa-3x"></i></div><div class="portfolio-info"><h4>CCTV setup</h4><span class="pill">Tech</span></div></div>
+    </div>
 
-            // ---- dynamic service options based on category
-            const serviceOptions = {
-                'Graphic Design': [
-                    'Logo Design & Brand Identity',
-                    'Full graphic design (logo, flyers, branding)',
-                    'Social Media Graphics',
-                    'UI/UX Design'
-                ],
-                'Developer Services': [
-                    'Website Development',
-                    'Mobile App Development',
-                    'Custom development (web/app/system)',
-                    'E-commerce Development'
-                ],
-                'Technical Services': [
-                    'Technical Support',
-                    'IT support / repair / setup',
-                    'Network Setup',
-                    'CCTV Installation'
-                ],
-                'Multiple Services': [
-                    'Complete Digital Package',
-                    'Brand + Website Package'
-                ]
-            };
+    <!-- testimonial snippet -->
+    <div class="card" style="margin: 20px 0;">
+      <i class="fas fa-star" style="color: var(--orange);"></i> “Buffer Zone transformed our brand. Sales increased 40%!” – Mary N.
+    </div>
 
-            categorySelect.addEventListener('change', function() {
-                const cat = this.value;
-                serviceSelect.innerHTML = '<option value="">Select service</option>';
-                detailBox.style.display = 'none';
-                if (cat && serviceOptions[cat]) {
-                    serviceOptions[cat].forEach(srv => {
-                        const opt = document.createElement('option');
-                        opt.value = srv;
-                        opt.textContent = srv;
-                        serviceSelect.appendChild(opt);
-                    });
-                }
-            });
+    <!-- contact & CTA -->
+    <div class="contact-cell" onclick="window.open('https://wa.me/0768658484', '_blank')">
+      <div class="contact-icon" style="background: var(--green);"><i class="fab fa-whatsapp"></i></div>
+      <div><strong>WhatsApp direct</strong><br>0768658484</div>
+    </div>
+    <div class="contact-cell">
+      <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
+      <div><strong>Call</strong><br>0768658484 / 0976760537</div>
+    </div>
 
-            // show detail box when service selected
-            serviceSelect.addEventListener('change', function() {
-                const srv = this.value;
-                if (srv && serviceDetailMap[srv]) {
-                    const d = serviceDetailMap[srv];
-                    detailTitle.textContent = d.title;
-                    detailDesc.textContent = d.desc;
-                    detailTimeline.textContent = d.timeline;
-                    detailBox.style.display = 'block';
-                } else {
-                    detailBox.style.display = 'none';
-                }
-            });
+    <!-- big order button -->
+    <button class="btn-primary btn-whatsapp-large" id="floatingOrderBtn" style="margin: 24px 0 10px;"><i class="fab fa-whatsapp"></i> Request a quote</button>
 
-            // prefill from any "select & order" button
-            document.querySelectorAll('.select-btn').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    const category = this.dataset.category;
-                    const service = this.dataset.service;
-                    // set modal fields
-                    if (category) {
-                        categorySelect.value = category;
-                        // trigger change to populate services
-                        categorySelect.dispatchEvent(new Event('change'));
-                        // wait a tick then set service
-                        setTimeout(() => {
-                            if (service) {
-                                // find matching option
-                                const options = Array.from(serviceSelect.options);
-                                const match = options.find(opt => opt.value === service);
-                                if (match) {
-                                    serviceSelect.value = service;
-                                    serviceSelect.dispatchEvent(new Event('change'));
-                                } else {
-                                    // try to set first option
-                                    serviceSelect.selectedIndex = 1;
-                                    serviceSelect.dispatchEvent(new Event('change'));
-                                }
-                            }
-                        }, 50);
-                    }
-                    modal.classList.add('active');
-                    document.body.style.overflow = 'hidden';
-                });
-            });
+    <!-- footer -->
+    <div class="footer">
+      © Buffer Zone · digital & technical services · 2025
+    </div>
+  </div>
 
-            // ---- whatsapp send
-            submitBtn.addEventListener('click', function() {
-                const category = categorySelect.value;
-                const service = serviceSelect.value;
-                const details = modalDesc.value.trim();
+  <!-- MODAL (order sheet) -->
+  <div class="modal-overlay" id="orderModal">
+    <div class="modal-sheet">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="modal-title">New request</div>
+        <button class="close-modal" id="closeModalBtn" style="background: none; border: none; font-size: 28px;"><i class="fas fa-xmark"></i></button>
+      </div>
 
-                if (!category || !service) {
-                    alert('Please select both category and service');
-                    return;
-                }
+      <div class="modal-field">
+        <label>Category</label>
+        <select id="modalCategory">
+          <option value="">Select</option>
+          <option value="Graphic Design">Graphic Design</option>
+          <option value="Developer Services">Developer Services</option>
+          <option value="Technical Services">Technical Services</option>
+          <option value="Multiple Services">Multiple / package</option>
+        </select>
+      </div>
 
-                const phone = '0768658484'; // same as given
-                const message = `Hello Buffer Zone! I'm interested in:%0A*Category*: ${category}%0A*Service*: ${service}%0A%0A*Details*: ${details || '(not specified)'}%0A%0ACan we discuss further?`;
-                const url = `https://wa.me/${phone}?text=${message}`;
-                window.open(url, '_blank');
-                closeModal();
-                // optionally reset
-                categorySelect.value = '';
-                serviceSelect.innerHTML = '<option value="">First pick a category</option>';
-                modalDesc.value = '';
-                detailBox.style.display = 'none';
-            });
+      <div class="modal-field">
+        <label>Service</label>
+        <select id="modalService">
+          <option value="">Pick a category first</option>
+        </select>
+      </div>
 
-            // ensure overflow reset on close
-            window.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && modal.classList.contains('active')) {
-                    closeModal();
-                }
-            });
+      <div class="modal-field">
+        <label>Details (optional)</label>
+        <textarea id="modalDescription" rows="3" placeholder="Tell us about your project..."></textarea>
+      </div>
 
-            // touch optimizations
-            const allButtons = document.querySelectorAll('button');
-            allButtons.forEach(b => {
-                b.addEventListener('touchstart', function(){}, {passive: true});
-            });
+      <!-- dynamic service preview -->
+      <div class="service-preview" id="servicePreview" style="display: none;">
+        <strong id="previewTitle">Logo & Brand Identity</strong>
+        <p id="previewDesc" style="margin-top: 6px;">Complete brand design with guidelines.</p>
+        <div><i class="fas fa-clock"></i> <span id="previewTimeline">7-14 days</span></div>
+      </div>
 
-        })();
-    </script>
-    <!-- small style for active states -->
-    <style>
-        button, .contact-row { cursor: pointer; -webkit-touch-callout: none; }
-        .modal-overlay.active ~ body { overflow: hidden; }
-        select, textarea { outline: none; }
-        select:focus, textarea:focus { border-color: var(--ios-tint) !important; }
-    </style>
+      <div class="modal-actions">
+        <button class="modal-btn" id="cancelModal">Cancel</button>
+        <button class="modal-btn primary" id="submitWhatsApp"><i class="fab fa-whatsapp"></i> Send via WA</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // ---- loading screen
+      const loadingScreen = document.getElementById('loadingScreen');
+      const progressBar = document.getElementById('loadingProgress');
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.random() * 15;
+        if (progress > 90) progress = 90;
+        progressBar.style.width = progress + '%';
+      }, 150);
+      setTimeout(() => {
+        clearInterval(interval);
+        progressBar.style.width = '100%';
+        setTimeout(() => {
+          loadingScreen.classList.add('hidden');
+        }, 400);
+      }, 2000);
+
+      // ---- image placeholder (all <img> get an inline SVG based on alt)
+      document.querySelectorAll('img').forEach(img => {
+        const alt = img.alt || 'image';
+        const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%"><rect width="100" height="100" fill="#e0e0f0"/><text x="50" y="55" font-size="14" text-anchor="middle" fill="#333" font-family="system-ui">${alt}</text></svg>`;
+        const encoded = 'data:image/svg+xml,' + encodeURIComponent(svg);
+        img.src = encoded;
+      });
+
+      // ---- modal elements
+      const modal = document.getElementById('orderModal');
+      const openBtns = [document.getElementById('openModalBtn'), document.getElementById('floatingOrderBtn')];
+      const closeBtn = document.getElementById('closeModalBtn');
+      const cancelBtn = document.getElementById('cancelModal');
+      const categorySelect = document.getElementById('modalCategory');
+      const serviceSelect = document.getElementById('modalService');
+      const previewBox = document.getElementById('servicePreview');
+      const previewTitle = document.getElementById('previewTitle');
+      const previewDesc = document.getElementById('previewDesc');
+      const previewTimeline = document.getElementById('previewTimeline');
+      const modalDesc = document.getElementById('modalDescription');
+      const submitBtn = document.getElementById('submitWhatsApp');
+
+      // service details DB
+      const detailsDB = {
+        'Logo Design & Brand Identity': { title: 'Logo & Brand Identity', desc: 'Logo variations, brand guidelines, color palette, typography.', timeline: '7-14 days' },
+        'Full graphic design (logo, flyers, branding)': { title: 'Complete Graphic Design', desc: 'Logo, flyers, social media assets, brand identity.', timeline: '5-10 days' },
+        'Website Development': { title: 'Website Development', desc: 'Responsive, SEO-optimized, CMS, analytics.', timeline: '3-8 weeks' },
+        'Mobile App Development': { title: 'Mobile App', desc: 'Native/cross-platform, backend, app store.', timeline: '6-12 weeks' },
+        'Custom development (web/app/system)': { title: 'Custom Development', desc: 'Tailored software, e‑commerce, APIs.', timeline: '2-10 weeks' },
+        'Technical Support': { title: 'Tech Support', desc: 'Troubleshooting, repair, virus removal.', timeline: 'ongoing / 24h' },
+        'IT support / repair / setup': { title: 'IT Support & Setup', desc: 'Computer repair, CCTV, network, data recovery.', timeline: '1-3 days' },
+      };
+
+      // service options per category
+      const serviceMap = {
+        'Graphic Design': ['Logo Design & Brand Identity', 'Full graphic design (logo, flyers, branding)', 'Social Media Graphics', 'UI/UX Design'],
+        'Developer Services': ['Website Development', 'Mobile App Development', 'Custom development (web/app/system)', 'E-commerce Development'],
+        'Technical Services': ['Technical Support', 'IT support / repair / setup', 'Network Setup', 'CCTV Installation'],
+        'Multiple Services': ['Complete Digital Package', 'Brand + Website Package']
+      };
+
+      categorySelect.addEventListener('change', function() {
+        const cat = this.value;
+        serviceSelect.innerHTML = '<option value="">Select service</option>';
+        previewBox.style.display = 'none';
+        if (cat && serviceMap[cat]) {
+          serviceMap[cat].forEach(s => {
+            const opt = document.createElement('option');
+            opt.value = s;
+            opt.textContent = s;
+            serviceSelect.appendChild(opt);
+          });
+        }
+      });
+
+      serviceSelect.addEventListener('change', function() {
+        const srv = this.value;
+        if (srv && detailsDB[srv]) {
+          const d = detailsDB[srv];
+          previewTitle.textContent = d.title;
+          previewDesc.textContent = d.desc;
+          previewTimeline.textContent = d.timeline;
+          previewBox.style.display = 'block';
+        } else {
+          previewBox.style.display = 'none';
+        }
+      });
+
+      // prefill from select buttons
+      document.querySelectorAll('.select-btn').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          const cat = this.dataset.category;
+          const srv = this.dataset.service;
+          categorySelect.value = cat || '';
+          categorySelect.dispatchEvent(new Event('change'));
+          setTimeout(() => {
+            if (srv) {
+              serviceSelect.value = srv;
+              serviceSelect.dispatchEvent(new Event('change'));
+            }
+          }, 60);
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      // open modal
+      openBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.preventDefault();
+          modal.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+
+      const closeModal = () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+      };
+      closeBtn.addEventListener('click', closeModal);
+      cancelBtn.addEventListener('click', closeModal);
+      modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+      // submit to WhatsApp
+      submitBtn.addEventListener('click', function() {
+        const cat = categorySelect.value;
+        const srv = serviceSelect.value;
+        const details = modalDesc.value.trim();
+        if (!cat || !srv) {
+          alert('Please select category and service');
+          return;
+        }
+        const phone = '0768658484';
+        const msg = `Hello Buffer Zone! I'm interested in:%0A*Category*: ${cat}%0A*Service*: ${srv}%0A%0A*Details*: ${details || '(not provided)'}%0A%0A Let's discuss.`;
+        window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+        closeModal();
+        // reset (optional)
+        categorySelect.value = '';
+        serviceSelect.innerHTML = '<option value="">Pick a category first</option>';
+        modalDesc.value = '';
+        previewBox.style.display = 'none';
+      });
+
+      // escape key
+      window.addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('active')) closeModal(); });
+
+    })();
+  </script>
 </body>
 </html>
