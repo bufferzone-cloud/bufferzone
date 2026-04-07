@@ -49,7 +49,6 @@
             --radius-large: 16px;
             --radius-extra-large: 20px;
             --radius-circle: 50%;
-            --radius-pill: 100px;
             
             /* Spacing - Compact Mac layout */
             --space-xs: 4px;
@@ -463,7 +462,7 @@
             color: white;
             border: none;
             padding: 8px 16px;
-            border-radius: var(--radius-pill);
+            border-radius: var(--radius-medium);
             font-size: var(--font-size-sm);
             font-weight: 500;
             cursor: pointer;
@@ -757,11 +756,11 @@
         }
 
         /* ============================================
-           ENHANCED SERVICES SECTIONS - Glass Morphism + DROPDOWNS
+           ENHANCED SERVICES SECTIONS - Glass Morphism
         ============================================ */
         .services-grid {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-columns: 1fr;
             gap: var(--space-xxl);
         }
 
@@ -862,90 +861,6 @@
             transform: translateX(5px) translateZ(10px);
         }
 
-        /* DROPDOWN BUTTON - PILL SHAPED WITH GLASS */
-        .dropdown-btn {
-            background: rgba(0, 122, 255, 0.1);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(0, 122, 255, 0.2);
-            padding: 10px 20px;
-            border-radius: var(--radius-pill);
-            font-weight: 600;
-            color: var(--accent-blue);
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-            margin-top: var(--space-md);
-            font-size: var(--font-size-sm);
-        }
-
-        .dropdown-btn i {
-            transition: transform 0.3s ease;
-        }
-
-        .dropdown-btn.active i {
-            transform: rotate(180deg);
-        }
-
-        .dropdown-btn:hover {
-            background: var(--accent-blue);
-            color: white;
-            border-color: var(--accent-blue);
-            transform: translateY(-2px);
-        }
-
-        /* DROPDOWN CONTENT - GLASS, BLUR, ANIMATED */
-        .service-dropdown {
-            max-height: 0;
-            opacity: 0;
-            overflow: hidden;
-            transition: max-height 0.5s cubic-bezier(0.33, 1, 0.68, 1), opacity 0.4s ease, margin 0.3s;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border-radius: var(--radius-large);
-            margin-top: 0;
-            padding: 0 var(--space-lg);
-        }
-
-        .service-dropdown.open {
-            max-height: 800px;
-            opacity: 1;
-            margin-top: var(--space-lg);
-            padding: var(--space-lg);
-        }
-
-        .sub-services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: var(--space-md);
-        }
-
-        .sub-service-item {
-            background: white;
-            border-radius: var(--radius-medium);
-            padding: var(--space-md);
-            transition: transform 0.2s, box-shadow 0.2s;
-            box-shadow: var(--shadow-subtle);
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-
-        .sub-service-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-medium);
-        }
-
-        .sub-service-item h4 {
-            font-size: var(--font-size-md);
-            margin-bottom: var(--space-xs);
-            color: var(--accent-blue);
-        }
-
-        .sub-service-item p {
-            font-size: var(--font-size-sm);
-            color: var(--text-secondary);
-        }
-
         .service-features {
             list-style: none;
             display: grid;
@@ -1028,6 +943,9 @@
             transform: translateX(5px);
         }
 
+        /* ============================================
+           ENHANCED SERVICE MEDIA - Optimized for Mobile Portrait
+        ============================================ */
         .service-media {
             position: relative;
             overflow: hidden;
@@ -1062,7 +980,7 @@
             backdrop-filter: blur(10px);
             color: white;
             padding: 4px 12px;
-            border-radius: var(--radius-pill);
+            border-radius: var(--radius-medium);
             font-size: var(--font-size-xs);
             font-weight: 500;
             letter-spacing: 0.3px;
@@ -1078,7 +996,7 @@
         }
 
         /* ============================================
-           ENHANCED FOUNDER SECTION - 3D Effects + RESPONSIVE IMAGE
+           ENHANCED FOUNDER SECTION - 3D Effects
         ============================================ */
         .founder-section {
             padding: var(--space-huge) 0;
@@ -1118,7 +1036,6 @@
             transform-style: preserve-3d;
             perspective: var(--perspective-depth);
             transition: transform var(--transition-medium);
-            background: var(--apple-grey-2);
         }
 
         .founder-media:hover {
@@ -1131,12 +1048,10 @@
             display: block;
             transition: transform var(--transition-slow) var(--transition-elastic);
             transform: translateZ(0);
-            object-fit: cover;
-            aspect-ratio: 1 / 1;
         }
 
         .founder-media:hover img {
-            transform: scale(1.05) translateZ(20px);
+            transform: scale(1.08) translateZ(20px);
         }
 
         .founder-content {
@@ -1153,7 +1068,7 @@
             background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
             color: white;
             padding: 4px 12px;
-            border-radius: var(--radius-pill);
+            border-radius: var(--radius-medium);
             font-size: var(--font-size-xs);
             font-weight: 600;
             letter-spacing: 0.5px;
@@ -1275,7 +1190,7 @@
             background-color: rgba(232, 232, 237, var(--glass-opacity));
             backdrop-filter: blur(var(--glass-blur));
             border: none;
-            border-radius: var(--radius-pill);
+            border-radius: var(--radius-medium);
             color: var(--text-secondary);
             font-size: var(--font-size-sm);
             font-weight: 500;
@@ -1364,6 +1279,26 @@
             transform: scale(1.1) rotate(1deg);
         }
 
+        /* Developer app screenshots without frames - PORTRAIT OPTIMIZED */
+        .portfolio-item[data-category="developer"] .portfolio-media {
+            height: 400px;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--space-md);
+        }
+
+        .portfolio-item[data-category="developer"] .portfolio-media img {
+            width: auto;
+            height: 100%;
+            object-fit: contain;
+            border-radius: var(--radius-small);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            max-width: 100%;
+            max-height: 100%;
+        }
+
         .portfolio-info {
             padding: var(--space-lg);
             background-color: rgba(255, 255, 255, 0.9);
@@ -1399,7 +1334,7 @@
             background-color: rgba(232, 232, 237, 0.8);
             color: var(--text-secondary);
             padding: 2px 8px;
-            border-radius: var(--radius-pill);
+            border-radius: var(--radius-small);
             font-size: var(--font-size-xs);
             font-weight: 500;
             margin-top: var(--space-sm);
@@ -1792,7 +1727,7 @@
 
         .modal-btn {
             padding: 12px 24px;
-            border-radius: var(--radius-pill);
+            border-radius: var(--radius-medium);
             font-size: var(--font-size-base);
             font-weight: 600;
             cursor: pointer;
@@ -1997,7 +1932,7 @@
             transform: translateX(-50%);
             background-color: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(10px);
-            border-radius: var(--radius-pill);
+            border-radius: var(--radius-large);
             padding: 8px 20px;
             display: flex;
             align-items: center;
@@ -2315,6 +2250,7 @@
            MOBILE PORTRAIT OPTIMIZATION - CRITICAL FIXES
         ============================================ */
         @media (max-width: 768px) and (orientation: portrait) {
+            /* Ensure all images and videos display properly in portrait */
             .service-media,
             .portfolio-media,
             .testimonial-video,
@@ -2326,6 +2262,7 @@
                 overflow: hidden !important;
             }
             
+            /* Force portrait aspect ratio for media */
             .service-media img,
             .service-media video,
             .portfolio-media img,
@@ -2339,6 +2276,7 @@
                 display: block !important;
             }
             
+            /* Developer screenshots optimization for portrait */
             .portfolio-item[data-category="developer"] .portfolio-media {
                 height: 500px !important;
                 padding: var(--space-md) !important;
@@ -2353,12 +2291,14 @@
                 border-radius: var(--radius-small) !important;
             }
             
+            /* Hero logo optimization */
             .hero-logo-img {
                 max-width: 80% !important;
                 max-height: 300px !important;
                 object-fit: contain !important;
             }
             
+            /* Adjust service card layout for portrait */
             .service-card-inner {
                 grid-template-columns: 1fr !important;
                 min-height: auto !important;
@@ -2368,6 +2308,7 @@
                 order: -1 !important;
             }
             
+            /* Improve touch targets */
             .nav-links a,
             .filter-btn,
             .modal-btn,
@@ -2379,6 +2320,7 @@
                 justify-content: center !important;
             }
             
+            /* Adjust spacing for mobile */
             section {
                 padding: var(--space-xl) 0 !important;
             }
@@ -2389,17 +2331,20 @@
                 min-height: 100vh !important;
             }
             
+            /* Fix modal for mobile */
             .modal-content {
                 max-height: 80vh !important;
                 margin: var(--space-sm) !important;
                 border-radius: var(--radius-large) !important;
             }
             
+            /* Ensure videos play inline on mobile */
             video {
                 playsinline: true !important;
                 webkit-playsinline: true !important;
             }
             
+            /* Adjust grid layouts for portrait */
             .contact-grid,
             .services-grid,
             .portfolio-grid {
@@ -2595,6 +2540,7 @@
                 padding: var(--space-lg);
             }
             
+            /* Mobile portrait specific fixes */
             .service-media,
             .portfolio-media,
             .testimonial-video,
@@ -2691,12 +2637,18 @@
             box-shadow: 0 0 8px rgba(0, 122, 255, 0.3);
         }
 
+        /* ============================================
+           SELECTION STYLING
+        ============================================ */
         ::selection {
             background-color: rgba(0, 122, 255, 0.3);
             color: var(--text-primary);
             text-shadow: none;
         }
 
+        /* ============================================
+           FOCUS VISIBLE
+        ============================================ */
         :focus-visible {
             outline: 2px solid var(--accent-blue);
             outline-offset: 3px;
@@ -2704,6 +2656,9 @@
             box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
         }
 
+        /* ============================================
+           PERFORMANCE OPTIMIZATIONS
+        ============================================ */
         .will-change-transform {
             will-change: transform;
         }
@@ -2725,7 +2680,7 @@
     <!-- Loading Screen -->
     <div class="loading-screen" id="loadingScreen">
         <div class="loading-logo">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007aff'/%3E%3Ctext x='50' y='67' text-anchor='middle' fill='white' font-size='40' font-weight='bold'%3EBZ%3C/text%3E%3C/svg%3E" alt="Buffer Zone Logo">
+            <img src="logo.png" alt="Buffer Zone Logo">
         </div>
         <div class="loading-text">Loading Buffer Zone...</div>
         <div class="loading-bar">
@@ -2803,7 +2758,7 @@
     <nav id="mainNav">
         <div class="nav-container">
             <a href="#home" class="logo">
-                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007aff'/%3E%3Ctext x='50' y='67' text-anchor='middle' fill='white' font-size='40' font-weight='bold'%3EBZ%3C/text%3E%3C/svg%3E" alt="Buffer Zone Logo" class="logo-img">
+                <img src="logo.png" alt="Buffer Zone Logo" class="logo-img">
                 <span class="logo-text">BUFFER ZONE</span>
             </a>
             <button class="quote-button" id="openModalBtn">
@@ -2840,7 +2795,7 @@
                     </div>
                 </div>
                 <div class="hero-logo">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007aff'/%3E%3Ctext x='50' y='67' text-anchor='middle' fill='white' font-size='40' font-weight='bold'%3EBZ%3C/text%3E%3C/svg%3E" alt="Buffer Zone Logo" class="hero-logo-img">
+                    <img src="logo.png" alt="Buffer Zone Logo" class="hero-logo-img">
                 </div>
             </div>
         </div>
@@ -2873,26 +2828,13 @@
                                 <li><i class="fas fa-check-circle"></i> Analytics & Reporting</li>
                             </ul>
                             
-                            <button class="dropdown-btn" data-target="dropdownMain">
-                                <span>Explore Sub-Services</span> <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div id="dropdownMain" class="service-dropdown">
-                                <div class="sub-services-grid">
-                                    <div class="sub-service-item"><h4>Digital Strategy Consulting</h4><p>Market analysis, roadmap planning, KPI tracking</p></div>
-                                    <div class="sub-service-item"><h4>Cross-Platform Development</h4><p>Web, iOS, Android unified codebase</p></div>
-                                    <div class="sub-service-item"><h4>UX/UI Design</h4><p>Wireframes, prototypes, user testing</p></div>
-                                    <div class="sub-service-item"><h4>Performance Optimization</h4><p>Speed audits, Core Web Vitals, caching</p></div>
-                                    <div class="sub-service-item"><h4>Analytics & Reporting</h4><p>Google Analytics, custom dashboards</p></div>
-                                </div>
-                            </div>
-                            
                             <div class="service-explanation">
                                 <h4>Why Choose Our Services?</h4>
                                 <p>We combine cutting-edge technology with creative design thinking to deliver solutions that not only look great but also perform exceptionally. Our process is collaborative, transparent, and focused on achieving your business goals.</p>
                             </div>
                         </div>
                         <div class="service-media">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23333'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white' font-size='20'%3EDigital Services%3C/text%3E%3C/svg%3E" alt="Digital Services">
+                            <img src="logo.png" alt="Digital Services">
                             <div class="media-label">Digital Services Showcase</div>
                         </div>
                     </div>
@@ -2911,7 +2853,7 @@
             
             <div class="founder-container">
                 <div class="founder-media">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Crect width='400' height='400' fill='%23e8e8ed'/%3E%3Ccircle cx='200' cy='160' r='80' fill='%23515154'/%3E%3Crect x='120' y='260' width='160' height='100' rx='20' fill='%23515154'/%3E%3C/svg%3E" alt="Jubel Mobela - Founder of Buffer Zone">
+                    <img src="developer.png" alt="Jubel Mobela - Founder of Buffer Zone">
                 </div>
                 <div class="founder-content">
                     <div class="founder-badge">Founder & CEO</div>
@@ -2940,7 +2882,7 @@
             <div class="service-card">
                 <div class="service-card-inner">
                     <div class="service-media">
-                        <video src="#" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23333'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white'%3EGraphic Design%3C/text%3E%3C/svg%3E" autoplay muted loop playsinline></video>
+                        <video src="graphics.mp4" autoplay muted loop playsinline></video>
                         <div class="media-label">Graphic Design Showcase</div>
                     </div>
                     <div class="service-content">
@@ -2967,18 +2909,6 @@
                             <li><i class="fas fa-check-circle"></i> 3D Design & Mockups</li>
                         </ul>
                         
-                        <button class="dropdown-btn" data-target="dropdownGraphic">
-                            <span>Explore Graphic Sub-Services</span> <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="dropdownGraphic" class="service-dropdown">
-                            <div class="sub-services-grid">
-                                <div class="sub-service-item"><h4>Brand Identity Packages</h4><p>Complete logo suites, color palettes, typography</p></div>
-                                <div class="sub-service-item"><h4>Social Media Kits</h4><p>Instagram templates, Facebook covers, ad designs</p></div>
-                                <div class="sub-service-item"><h4>Print Collateral</h4><p>Brochures, flyers, posters, business cards</p></div>
-                                <div class="sub-service-item"><h4>UI/UX Design</h4><p>App interfaces, website mockups, prototyping</p></div>
-                            </div>
-                        </div>
-                        
                         <div class="service-explanation">
                             <h4>Professional Design Process</h4>
                             <p>Our design process begins with comprehensive discovery to understand your brand, target audience, and objectives. We then move through concept development, design execution, and iterative refinement.</p>
@@ -3000,7 +2930,7 @@
             <div class="service-card">
                 <div class="service-card-inner">
                     <div class="service-media">
-                        <video src="#" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23333'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white'%3EDevelopment%3C/text%3E%3C/svg%3E" autoplay muted loop playsinline></video>
+                        <video src="developer.mp4" autoplay muted loop playsinline></video>
                         <div class="media-label">Development Process</div>
                     </div>
                     <div class="service-content">
@@ -3029,18 +2959,6 @@
                             <li><i class="fas fa-check-circle"></i> Software Installation</li>
                         </ul>
                         
-                        <button class="dropdown-btn" data-target="dropdownDev">
-                            <span>Explore Development Sub-Services</span> <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="dropdownDev" class="service-dropdown">
-                            <div class="sub-services-grid">
-                                <div class="sub-service-item"><h4>Full-Stack Web Development</h4><p>React, Node.js, Laravel, Django, PHP</p></div>
-                                <div class="sub-service-item"><h4>Mobile App Development</h4><p>React Native, Flutter, iOS, Android</p></div>
-                                <div class="sub-service-item"><h4>E-commerce Solutions</h4><p>Shopify, WooCommerce, Magento, custom carts</p></div>
-                                <div class="sub-service-item"><h4>Custom CRM & ERP</h4><p>Tailored business management systems</p></div>
-                            </div>
-                        </div>
-                        
                         <div class="service-explanation">
                             <h4>Agile Development Methodology</h4>
                             <p>We employ agile development practices to ensure timely delivery and maximum flexibility. Our process includes sprint planning, iterative development, continuous testing, and regular client demos.</p>
@@ -3062,7 +2980,7 @@
             <div class="service-card">
                 <div class="service-card-inner">
                     <div class="service-media">
-                        <video src="#" poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23333'/%3E%3Ctext x='200' y='150' text-anchor='middle' fill='white'%3ETechnical%3C/text%3E%3C/svg%3E" autoplay muted loop playsinline></video>
+                        <video src="technical.mp4" autoplay muted loop playsinline></video>
                         <div class="media-label">Technical Services</div>
                     </div>
                     <div class="service-content">
@@ -3089,18 +3007,6 @@
                             <li><i class="fas fa-check-circle"></i> Office IT Setup</li>
                             <li><i class="fas fa-check-circle"></i> User Training & Tech Support</li>
                         </ul>
-                        
-                        <button class="dropdown-btn" data-target="dropdownTech">
-                            <span>Explore Technical Sub-Services</span> <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div id="dropdownTech" class="service-dropdown">
-                            <div class="sub-services-grid">
-                                <div class="sub-service-item"><h4>Hardware Repair & Maintenance</h4><p>Desktops, laptops, printers, peripherals</p></div>
-                                <div class="sub-service-item"><h4>Network Infrastructure</h4><p>Wi-Fi optimization, LAN cabling, firewalls</p></div>
-                                <div class="sub-service-item"><h4>CCTV & Security Systems</h4><p>Installation, remote monitoring, cloud storage</p></div>
-                                <div class="sub-service-item"><h4>Data Recovery & Backup</h4><p>Disaster recovery, cloud backups, migration</p></div>
-                            </div>
-                        </div>
                         
                         <div class="service-explanation">
                             <h4>Comprehensive Technical Support</h4>
@@ -3132,7 +3038,7 @@
                     <!-- Graphic Design Projects -->
                     <div class="portfolio-item" data-category="graphic">
                         <div class="portfolio-media">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23444'/%3E%3Ctext x='200' y='150' fill='white' text-anchor='middle'%3ECoffee Flyer%3C/text%3E%3C/svg%3E" alt="Coffee & Tea Restaurant Flyer">
+                            <img src="graphicsflyer1.png" alt="Coffee & Tea Restaurant Flyer">
                         </div>
                         <div class="portfolio-info">
                             <h3>Coffee & Tea Restaurant</h3>
@@ -3143,7 +3049,7 @@
                     
                     <div class="portfolio-item" data-category="graphic">
                         <div class="portfolio-media">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23555'/%3E%3Ctext x='200' y='150' fill='white' text-anchor='middle'%3EFashion Flyer%3C/text%3E%3C/svg%3E" alt="Boutique Clothing Flyer">
+                            <img src="graphicsflyer2.png" alt="Boutique Clothing Flyer">
                         </div>
                         <div class="portfolio-info">
                             <h3>Fashion Boutique Collection</h3>
@@ -3154,7 +3060,7 @@
                     
                     <div class="portfolio-item" data-category="graphic">
                         <div class="portfolio-media">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23666'/%3E%3Ctext x='200' y='150' fill='white' text-anchor='middle'%3ESpeech Flyer%3C/text%3E%3C/svg%3E" alt="Speech Themed Flyer">
+                            <img src="graphicsflyer3.png" alt="Speech Themed Flyer">
                         </div>
                         <div class="portfolio-info">
                             <h3>The Untold Story Speech</h3>
@@ -3166,7 +3072,7 @@
                     <!-- Developer Projects - App Screenshots -->
                     <div class="portfolio-item" data-category="developer">
                         <div class="portfolio-media">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 400'%3E%3Crect width='200' height='400' fill='%23222'/%3E%3Ctext x='100' y='200' fill='white' text-anchor='middle'%3EWiza Food App%3C/text%3E%3C/svg%3E" alt="Wiza Food Cafe App">
+                            <img src="wiza.jpeg" alt="Wiza Food Cafe App">
                         </div>
                         <div class="portfolio-info">
                             <h3>Wiza Food Cafe App</h3>
@@ -3177,7 +3083,7 @@
                     
                     <div class="portfolio-item" data-category="developer">
                         <div class="portfolio-media">
-                            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 400'%3E%3Crect width='200' height='400' fill='%23333'/%3E%3Ctext x='100' y='200' fill='white' text-anchor='middle'%3EJubel Ride%3C/text%3E%3C/svg%3E" alt="Jubel Ride Hailing App">
+                            <img src="jubel.jpeg" alt="Jubel Ride Hailing App">
                         </div>
                         <div class="portfolio-info">
                             <h3>Jubel Ride Hailing App</h3>
@@ -3227,7 +3133,7 @@
             
             <div class="about-section">
                 <div class="about-media">
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%23007aff'/%3E%3Ctext x='50' y='67' text-anchor='middle' fill='white' font-size='40' font-weight='bold'%3EBZ%3C/text%3E%3C/svg%3E" alt="Buffer Zone Logo">
+                    <img src="logo.png" alt="Buffer Zone Logo">
                 </div>
                 <div class="about-content">
                     <h2>Who We Are</h2>
@@ -3273,7 +3179,7 @@
                 </div>
                 
                 <div class="testimonial-video">
-                    <video src="#" controls playsinline poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'%3E%3Crect width='400' height='300' fill='%23333'/%3E%3Ctext x='200' y='150' fill='white' text-anchor='middle'%3ETestimonial Video%3C/text%3E%3C/svg%3E"></video>
+                    <video src="testimony.mp4" controls playsinline poster="logo.png"></video>
                     <div class="video-controls">
                         <i class="fas fa-play"></i>
                         <span>Client Testimonial</span>
@@ -3382,7 +3288,7 @@
                 <a href="#about">About</a>
                 <a href="#contact">Contact</a>
             </div>
-            <p>&copy; 2025 Buffer Zone. All rights reserved. | Designed with precision and innovation.</p>
+            <p>&copy; 2023 Buffer Zone. All rights reserved. | Designed with precision and innovation.</p>
         </div>
     </footer>
 
@@ -3393,6 +3299,7 @@
         const loadingScreen = document.getElementById('loadingScreen');
         const loadingProgress = document.querySelector('.loading-progress');
         
+        // Simulate progressive loading with multiple steps
         let progress = 0;
         const progressInterval = setInterval(() => {
             progress += Math.random() * 15;
@@ -3402,44 +3309,87 @@
             loadingProgress.style.width = `${progress}%`;
         }, 200);
         
+        // Complete loading after 2.5 seconds
         setTimeout(() => {
             clearInterval(progressInterval);
             loadingProgress.style.width = '100%';
+            
+            // Add completion animation
             setTimeout(() => {
                 loadingScreen.classList.add('hidden');
                 document.body.style.overflow = 'auto';
+                
+                // Trigger initial animations
                 animateOnScroll();
             }, 500);
         }, 2500);
 
         // ============================================
-        // ENHANCED NAVIGATION
+        // ENHANCED NAVIGATION WITH PARALLAX EFFECTS
         // ============================================
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         const mainNav = document.getElementById('mainNav');
         const openModalBtn = document.getElementById('openModalBtn');
         
+        // Mobile menu toggle with enhanced animations
         mobileMenuBtn.addEventListener('click', (e) => {
             e.stopPropagation();
             const isActive = navLinks.classList.toggle('active');
             mobileMenuBtn.classList.toggle('active');
             const icon = mobileMenuBtn.querySelector('i');
+            
+            // Animate icon
             if (isActive) {
                 icon.classList.remove('fa-bars');
                 icon.classList.add('fa-times');
+                mobileMenuBtn.style.transform = 'rotate(180deg) scale(1.1)';
             } else {
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
+                mobileMenuBtn.style.transform = 'rotate(0) scale(1)';
             }
+            
+            // Add ripple effect
+            const ripple = document.createElement('span');
+            const rect = mobileMenuBtn.getBoundingClientRect();
+            const size = Math.max(rect.width, rect.height);
+            const x = e.clientX - rect.left - size / 2;
+            const y = e.clientY - rect.top - size / 2;
+            
+            ripple.style.cssText = `
+                position: absolute;
+                border-radius: 50%;
+                background: rgba(0, 122, 255, 0.2);
+                transform: scale(0);
+                animation: ripple-animation 0.6s linear;
+                width: ${size}px;
+                height: ${size}px;
+                top: ${y}px;
+                left: ${x}px;
+            `;
+            
+            mobileMenuBtn.appendChild(ripple);
+            setTimeout(() => ripple.remove(), 600);
         });
         
+        // Close mobile menu when clicking on a link
         document.querySelectorAll('.nav-links a').forEach(link => {
             link.addEventListener('click', (e) => {
+                // Add click animation
+                link.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    link.style.transform = '';
+                }, 200);
+                
+                // Close menu
                 navLinks.classList.remove('active');
                 mobileMenuBtn.classList.remove('active');
                 mobileMenuBtn.querySelector('i').classList.add('fa-bars');
                 mobileMenuBtn.querySelector('i').classList.remove('fa-times');
+                mobileMenuBtn.style.transform = 'rotate(0) scale(1)';
+                
+                // Smooth scroll to section
                 const targetId = link.getAttribute('href');
                 if (targetId.startsWith('#')) {
                     e.preventDefault();
@@ -3454,159 +3404,254 @@
             });
         });
         
+        // Enhanced Navbar scroll effect with parallax
         let lastScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
             const currentScrollY = window.scrollY;
+            
+            // Scrolling down
             if (currentScrollY > lastScrollY && currentScrollY > 100) {
                 mainNav.style.transform = 'translateY(-100%)';
-            } else {
+            } 
+            // Scrolling up
+            else {
                 mainNav.style.transform = 'translateY(0)';
             }
+            
+            // Add shadow and background effect
             if (currentScrollY > 50) {
                 mainNav.classList.add('scrolled');
+                mainNav.style.backdropFilter = 'saturate(180%) blur(30px)';
             } else {
                 mainNav.classList.remove('scrolled');
+                mainNav.style.backdropFilter = 'saturate(180%) blur(20px)';
             }
             
+            // Update active nav link with smooth transition
             const sections = document.querySelectorAll('section');
             const navLinksList = document.querySelectorAll('.nav-links a');
+            
             let current = '';
             sections.forEach(section => {
                 const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
                 if (scrollY >= sectionTop - 150) {
                     current = section.getAttribute('id');
                 }
             });
+            
             navLinksList.forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === `#${current}`) {
                     link.classList.add('active');
+                    // Add pulse effect to active link
+                    link.style.animation = 'none';
+                    setTimeout(() => {
+                        link.style.animation = 'pulse 2s infinite';
+                    }, 10);
                 }
             });
+            
             lastScrollY = currentScrollY;
-        });
-
-        // ============================================
-        // DROPDOWN BUTTONS (ACCORDION) FOR SERVICE CARDS
-        // ============================================
-        const dropdownBtns = document.querySelectorAll('.dropdown-btn');
-        dropdownBtns.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('data-target');
-                const dropdown = document.getElementById(targetId);
-                const isOpen = dropdown.classList.contains('open');
-                
-                // Optional: close other dropdowns
-                document.querySelectorAll('.service-dropdown').forEach(dd => {
-                    if (dd !== dropdown && dd.classList.contains('open')) {
-                        dd.classList.remove('open');
-                        const otherBtn = document.querySelector(`.dropdown-btn[data-target="${dd.id}"]`);
-                        if (otherBtn) otherBtn.classList.remove('active');
-                    }
-                });
-                
-                if (!isOpen) {
-                    dropdown.classList.add('open');
-                    this.classList.add('active');
-                } else {
-                    dropdown.classList.remove('open');
-                    this.classList.remove('active');
-                }
-            });
-        });
-
-        // ============================================
-        // ENHANCED MODAL POPUP
-        // ============================================
-        const modalOverlay = document.getElementById('modalOverlay');
-        const closeModal = document.getElementById('closeModal');
-        const cancelModal = document.getElementById('cancelModal');
-        const modalCategory = document.getElementById('modalCategory');
-        const modalService = document.getElementById('modalService');
-        const modalServiceDetails = document.getElementById('modalServiceDetails');
-        const modalServiceTitle = document.getElementById('modalServiceTitle');
-        const modalServiceDescription = document.getElementById('modalServiceDescription');
-        const submitModal = document.getElementById('submitModal');
-        const modalDescription = document.getElementById('modalDescription');
-        
-        openModalBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            modalOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            
+            // Parallax effect on hero logo
+            const heroLogo = document.querySelector('.hero-logo-img');
+            if (heroLogo && currentScrollY < 500) {
+                const speed = 0.5;
+                const yPos = -(currentScrollY * speed);
+                heroLogo.style.transform = `translateY(${yPos}px)`;
+            }
         });
         
+       // ============================================
+// ENHANCED MODAL POPUP WITH ANIMATIONS
+// ============================================
+const modalOverlay = document.getElementById('modalOverlay');
+const closeModal = document.getElementById('closeModal');
+const cancelModal = document.getElementById('cancelModal');
+const modalCategory = document.getElementById('modalCategory');
+const modalService = document.getElementById('modalService');
+const modalServiceDetails = document.getElementById('modalServiceDetails');
+const modalServiceTitle = document.getElementById('modalServiceTitle');
+const modalServiceDescription = document.getElementById('modalServiceDescription');
+const submitModal = document.getElementById('submitModal');
+const modalDescription = document.getElementById('modalDescription');
+
+// Enhanced open modal with animation
+openModalBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Add ripple effect
+    const ripple = document.createElement('span');
+    const rect = openModalBtn.getBoundingClientRect();
+    const size = Math.max(rect.width, rect.height);
+    const x = e.clientX - rect.left - size / 2;
+    const y = e.clientY - rect.top - size / 2;
+    
+    ripple.style.cssText = `
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(0);
+        animation: ripple-animation 0.6s linear;
+        width: ${size}px;
+        height: ${size}px;
+        top: ${y}px;
+        left: ${x}px;
+    `;
+    
+    openModalBtn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 600);
+    
+    // Open modal with delay
+    setTimeout(() => {
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Animate modal content
+        const modalContent = document.querySelector('.modal-content');
+        modalContent.style.animation = 'none';
+        setTimeout(() => {
+            modalContent.style.animation = 'modalSlideUp 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) var(--transition-elastic)';
+        }, 10);
+    }, 300);
+});
+        
+        // Enhanced close modal function
         const closeModalFunc = () => {
-            modalOverlay.classList.remove('active');
-            document.body.style.overflow = 'auto';
+            const modalContent = document.querySelector('.modal-content');
+            modalContent.style.animation = 'modalSlideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse';
+            
+            setTimeout(() => {
+                modalOverlay.classList.remove('active');
+                document.body.style.overflow = 'auto';
+                modalContent.style.animation = '';
+            }, 300);
         };
         
         closeModal.addEventListener('click', closeModalFunc);
         cancelModal.addEventListener('click', closeModalFunc);
+        
+        // Close modal when clicking outside with animation
         modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) closeModalFunc();
-        });
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModalFunc();
+            if (e.target === modalOverlay) {
+                closeModalFunc();
+            }
         });
         
+        // Close modal with Escape key with animation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModalFunc();
+            }
+        });
+        
+        // ============================================
+        // ENHANCED SERVICE DETAILS IN MODAL
+        // ============================================
+        // Enhanced service details data
         const serviceData = {
             'Logo Design & Brand Identity': {
                 title: 'Logo Design & Brand Identity',
-                description: 'We create distinctive logos and comprehensive brand identity systems that communicate your brand values and resonate with your target audience.',
+                description: 'We create distinctive logos and comprehensive brand identity systems that communicate your brand values and resonate with your target audience. Our process includes brand discovery, competitive analysis, concept development, and full brand guideline documentation.',
                 timeline: '7-14 days',
                 deliverables: ['Logo variations', 'Brand guidelines', 'Color palette', 'Typography system']
             },
             'Website Development': {
                 title: 'Website Development',
-                description: 'We build responsive, SEO-optimized websites that provide exceptional user experiences across all devices.',
+                description: 'We build responsive, SEO-optimized websites that provide exceptional user experiences across all devices. Our development process includes information architecture, wireframing, prototyping, front-end development, back-end integration, and rigorous testing.',
                 timeline: '3-8 weeks',
                 deliverables: ['Fully responsive website', 'SEO optimization', 'Content management system', 'Analytics integration']
             },
             'Mobile App Development': {
                 title: 'Mobile App Development',
-                description: 'We develop native and cross-platform mobile applications with intuitive interfaces and robust functionality.',
+                description: 'We develop native and cross-platform mobile applications with intuitive interfaces and robust functionality. Our approach includes user research, feature planning, agile development, quality assurance, and App Store deployment.',
                 timeline: '6-12 weeks',
                 deliverables: ['iOS/Android apps', 'App Store deployment', 'Admin dashboard', 'API integration']
             },
             'Technical Support': {
                 title: 'Technical Support',
-                description: 'We provide comprehensive technical support services including troubleshooting, maintenance, and optimization.',
+                description: 'We provide comprehensive technical support services including troubleshooting, maintenance, and optimization of your IT infrastructure. Our certified technicians offer both remote and on-site support with rapid response times.',
                 timeline: 'Ongoing',
                 deliverables: ['24/7 support', 'Regular maintenance', 'Security updates', 'Performance monitoring']
             }
         };
         
+        // Enhanced update service options based on category
         modalCategory.addEventListener('change', function() {
             const category = this.value;
-            modalService.innerHTML = '<option value="">Choose a service</option>';
-            modalServiceDetails.classList.remove('active');
-            if (category === 'Graphic Design') {
-                modalService.innerHTML += `<option value="Logo Design & Brand Identity">Logo Design & Brand Identity</option>
-                                           <option value="Social Media Graphics">Social Media Graphics & Ads</option>
-                                           <option value="UI/UX Design">UI/UX Design for Websites & Apps</option>`;
-            } else if (category === 'Developer Services') {
-                modalService.innerHTML += `<option value="Website Development">Website Development</option>
-                                           <option value="Mobile App Development">Mobile App Development</option>
-                                           <option value="E-commerce Development">E-commerce Website Development</option>`;
-            } else if (category === 'Technical Services') {
-                modalService.innerHTML += `<option value="Technical Support">Technical Support & Troubleshooting</option>
-                                           <option value="Network Setup">Network Setup & Configuration</option>
-                                           <option value="System Maintenance">System Maintenance & Monitoring</option>`;
-            } else if (category === 'Multiple Services') {
-                modalService.innerHTML += `<option value="Complete Digital Package">Complete Digital Transformation Package</option>
-                                           <option value="Business Startup Package">Business Startup Package</option>`;
-            }
+            
+            // Animate select change
+            this.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            
+            // Clear service options with fade out
+            modalService.style.opacity = '0.5';
+            modalService.style.transform = 'translateX(-10px)';
+            
+            setTimeout(() => {
+                modalService.innerHTML = '<option value="">Choose a service</option>';
+                modalServiceDetails.classList.remove('active');
+                modalService.style.opacity = '1';
+                modalService.style.transform = 'translateX(0)';
+                
+                // Add services based on category with enhanced options
+                if (category === 'Graphic Design') {
+                    modalService.innerHTML += `
+                        <option value="Logo Design & Brand Identity">Logo Design & Brand Identity</option>
+                        <option value="Social Media Graphics">Social Media Graphics & Ads</option>
+                        <option value="UI/UX Design">UI/UX Design for Websites & Apps</option>
+                        <option value="Print Design">Business Cards, Flyers & Print Materials</option>
+                        <option value="Brand Identity">Complete Brand Identity Package</option>
+                    `;
+                } else if (category === 'Developer Services') {
+                    modalService.innerHTML += `
+                        <option value="Website Development">Website Development</option>
+                        <option value="Mobile App Development">Mobile App Development</option>
+                        <option value="E-commerce Development">E-commerce Website Development</option>
+                        <option value="Software Development">Custom Software Development</option>
+                        <option value="API Development">API Development & Integration</option>
+                    `;
+                } else if (category === 'Technical Services') {
+                    modalService.innerHTML += `
+                        <option value="Technical Support">Technical Support & Troubleshooting</option>
+                        <option value="Network Setup">Network Setup & Configuration</option>
+                        <option value="System Maintenance">System Maintenance & Monitoring</option>
+                        <option value="Hardware Repair">Computer & Hardware Repair</option>
+                        <option value="Cybersecurity">Cybersecurity Solutions</option>
+                    `;
+                } else if (category === 'Multiple Services') {
+                    modalService.innerHTML += `
+                        <option value="Complete Digital Package">Complete Digital Transformation Package</option>
+                        <option value="Business Startup Package">Business Startup Package</option>
+                        <option value="Ongoing Support Package">Ongoing Support & Maintenance Package</option>
+                        <option value="Brand + Website Package">Brand + Website Package</option>
+                    `;
+                }
+            }, 300);
         });
         
+        // Enhanced show service details when service is selected
         modalService.addEventListener('change', function() {
             const selectedService = this.value;
+            
+            // Animate select change
+            this.style.transform = 'scale(1.02)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            
             if (selectedService && serviceData[selectedService]) {
                 const service = serviceData[selectedService];
                 modalServiceTitle.textContent = service.title;
                 modalServiceDescription.textContent = service.description;
-                const pricingList = document.querySelector('#modalServiceDetails .service-pricing ul');
-                if (pricingList && service.deliverables) {
+                
+                // Update pricing details
+                const pricingList = document.querySelector('.service-pricing ul');
+                if (service.deliverables) {
                     pricingList.innerHTML = `
                         <li><i class="fas fa-check-circle"></i> 50% down payment required to start project</li>
                         <li><i class="fas fa-check-circle"></i> Final payment upon completion and delivery</li>
@@ -3615,101 +3660,484 @@
                         <li><i class="fas fa-check-circle"></i> Includes: ${service.deliverables.join(', ')}</li>
                     `;
                 }
-                modalServiceDetails.classList.add('active');
+                
+                // Animate in service details
+                modalServiceDetails.style.display = 'none';
+                setTimeout(() => {
+                    modalServiceDetails.style.display = 'block';
+                    modalServiceDetails.classList.add('active');
+                    
+                    // Add entrance animation
+                    modalServiceDetails.style.animation = 'none';
+                    setTimeout(() => {
+                        modalServiceDetails.style.animation = 'slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both';
+                    }, 10);
+                }, 300);
+                
+            } else if (selectedService) {
+                // For services not in the predefined data
+                modalServiceTitle.textContent = selectedService;
+                modalServiceDescription.textContent = 'This service is customized based on your specific requirements. We will conduct a detailed consultation to understand your needs and provide a tailored solution that meets your objectives and budget. Contact us for a comprehensive proposal.';
+                
+                // Animate in service details
+                modalServiceDetails.style.display = 'none';
+                setTimeout(() => {
+                    modalServiceDetails.style.display = 'block';
+                    modalServiceDetails.classList.add('active');
+                    
+                    // Add entrance animation
+                    modalServiceDetails.style.animation = 'none';
+                    setTimeout(() => {
+                        modalServiceDetails.style.animation = 'slideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both';
+                    }, 10);
+                }, 300);
             } else {
-                modalServiceDetails.classList.remove('active');
+                // Animate out service details
+                modalServiceDetails.style.animation = 'slideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse';
+                setTimeout(() => {
+                    modalServiceDetails.classList.remove('active');
+                    modalServiceDetails.style.animation = '';
+                }, 300);
             }
         });
         
-        submitModal.addEventListener('click', function() {
+        // Enhanced submit modal form via WhatsApp
+        submitModal.addEventListener('click', function(e) {
+            e.preventDefault();
+            
             const category = modalCategory.value;
             const service = modalService.value;
             const description = modalDescription.value;
+            
             if (!category || !service) {
-                alert('Please select a category and service before requesting a quote.');
+                // Animate error
+                const selectElements = [modalCategory, modalService].filter(el => !el.value);
+                selectElements.forEach(el => {
+                    el.style.animation = 'none';
+                    setTimeout(() => {
+                        el.style.animation = 'shake 0.5s';
+                        el.style.borderColor = 'var(--accent-red)';
+                        
+                        setTimeout(() => {
+                            el.style.animation = '';
+                            el.style.borderColor = '';
+                        }, 500);
+                    }, 10);
+                });
+                
+                // Show notification
+                showNotification('Please select a category and service before requesting a quote.', 'error');
                 return;
             }
+            
+            // Add click animation
+            this.style.transform = 'scale(0.95)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            
+            // Create WhatsApp message
             const phoneNumber = '0768658484';
             const message = `Hello Buffer Zone! I'm interested in your services.\n\nCategory: ${category}\nService: ${service}\n\nProject Details: ${description}\n\nPlease contact me to discuss further and provide a quote.`;
             const encodedMessage = encodeURIComponent(message);
             const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-            window.open(whatsappUrl, '_blank');
-            closeModalFunc();
-            modalCategory.value = '';
-            modalService.value = '';
-            modalDescription.value = '';
-            modalServiceDetails.classList.remove('active');
+            
+            // Show success notification
+            showNotification('Redirecting to WhatsApp...', 'success');
+            
+            // Open WhatsApp in new tab and close modal with delay
+            setTimeout(() => {
+                window.open(whatsappUrl, '_blank');
+                closeModalFunc();
+                
+                // Reset form
+                modalCategory.value = '';
+                modalService.value = '';
+                modalDescription.value = '';
+                modalServiceDetails.classList.remove('active');
+            }, 1000);
         });
-
+        
         // ============================================
-        // PORTFOLIO FILTERING
+        // ENHANCED PORTFOLIO FILTERING WITH ANIMATIONS
         // ============================================
         const filterButtons = document.querySelectorAll('.filter-btn');
         const portfolioItems = document.querySelectorAll('.portfolio-item');
         
         filterButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                filterButtons.forEach(btn => btn.classList.remove('active'));
+            button.addEventListener('click', (e) => {
+                // Add ripple effect
+                const ripple = document.createElement('span');
+                const rect = button.getBoundingClientRect();
+                const size = Math.max(rect.width, rect.height);
+                const x = e.clientX - rect.left - size / 2;
+                const y = e.clientY - rect.top - size / 2;
+                
+                ripple.style.cssText = `
+                    position: absolute;
+                    border-radius: 50%;
+                    background: rgba(0, 122, 255, 0.1);
+                    transform: scale(0);
+                    animation: ripple-animation 0.6s linear;
+                    width: ${size}px;
+                    height: ${size}px;
+                    top: ${y}px;
+                    left: ${x}px;
+                `;
+                
+                button.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+                
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    btn.style.transform = 'translateY(0)';
+                });
+                
+                // Add active class to clicked button
                 button.classList.add('active');
+                button.style.transform = 'translateY(-4px)';
+                
                 const filterValue = button.getAttribute('data-filter');
-                portfolioItems.forEach(item => {
+                
+                // Animate portfolio items
+                portfolioItems.forEach((item, index) => {
                     if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
-                        item.style.display = '';
+                        // Show item with staggered animation
+                        setTimeout(() => {
+                            item.style.display = 'block';
+                            item.style.animation = 'none';
+                            setTimeout(() => {
+                                item.style.animation = `slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s both`;
+                            }, 10);
+                        }, 100);
                     } else {
-                        item.style.display = 'none';
+                        // Hide item with fade out
+                        item.style.animation = 'slideUp 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) reverse';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                            item.style.animation = '';
+                        }, 300);
                     }
                 });
             });
         });
         
         // ============================================
-        // SCROLL ANIMATIONS
+        // ENHANCED SCROLL ANIMATIONS WITH INTERSECTION OBSERVER
         // ============================================
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animated');
+                    
+                    // Add different animations based on element type
+                    if (entry.target.classList.contains('service-card')) {
+                        entry.target.style.animation = `slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.2s both`;
+                    } else if (entry.target.classList.contains('portfolio-item')) {
+                        entry.target.style.animation = `slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s both`;
+                    } else if (entry.target.classList.contains('testimonial-card')) {
+                        entry.target.style.animation = `slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.4s both`;
+                    }
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all animated elements
+        document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-section, .founder-container').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Initial animation check
         const animateOnScroll = () => {
             const elements = document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item, .about-section, .founder-container');
+            
             elements.forEach((element, index) => {
                 const elementTop = element.getBoundingClientRect().top;
                 const elementVisible = 150;
+                
                 if (elementTop < window.innerHeight - elementVisible) {
-                    element.style.animation = `slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s both`;
+                    setTimeout(() => {
+                        element.classList.add('animated');
+                        element.style.animation = `slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.1}s both`;
+                    }, 100);
                 }
             });
         };
         
-        window.addEventListener('scroll', animateOnScroll);
-        animateOnScroll();
-        
-        // Smooth scroll for anchor links
+        // ============================================
+        // ENHANCED SMOOTH SCROLLING WITH OFFSET
+        // ============================================
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
                 const targetId = this.getAttribute('href');
                 if (targetId === '#') return;
+                
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
-                    e.preventDefault();
+                    // Calculate offset based on screen size
                     const offset = window.innerWidth < 768 ? 70 : 90;
+                    
                     window.scrollTo({
                         top: targetElement.offsetTop - offset,
                         behavior: 'smooth'
                     });
+                    
+                    // Add visual feedback
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
                 }
             });
         });
         
-        // Video controls
+        // ============================================
+        // ENHANCED VIDEO CONTROLS WITH CUSTOM PLAYER
+        // ============================================
         document.querySelectorAll('video').forEach(video => {
+            // Add custom controls
             video.addEventListener('click', function() {
-                if (this.paused) this.play();
-                else this.pause();
+                if (this.paused) {
+                    this.play();
+                    // Add play animation
+                    this.style.transform = 'scale(1.02)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                } else {
+                    this.pause();
+                    // Add pause animation
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 200);
+                }
+            });
+            
+            // Add hover effect
+            video.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.02)';
+                this.style.transition = 'transform 0.3s ease';
+            });
+            
+            video.addEventListener('mouseleave', function() {
+                this.style.transform = '';
             });
         });
         
-        // Set initial modal state
-        setTimeout(() => {
-            if (modalCategory) modalCategory.value = 'Graphic Design';
-            const event = new Event('change');
-            if (modalCategory) modalCategory.dispatchEvent(event);
-        }, 500);
+        // ============================================
+        // NOTIFICATION SYSTEM
+        // ============================================
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            // Add styles
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? 'var(--accent-green)' : type === 'error' ? 'var(--accent-red)' : 'var(--accent-blue)'};
+                color: white;
+                padding: var(--space-md) var(--space-lg);
+                border-radius: var(--radius-medium);
+                box-shadow: var(--shadow-medium);
+                z-index: 9999;
+                display: flex;
+                align-items: center;
+                gap: var(--space-sm);
+                transform: translateX(100%);
+                opacity: 0;
+                transition: transform 0.3s, opacity 0.3s;
+                max-width: 300px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+                notification.style.opacity = '1';
+            }, 10);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    notification.remove();
+                }, 300);
+            }, 3000);
+        }
+        
+        // ============================================
+        // ENHANCED HOVER EFFECTS WITH 3D TRANSFORMS
+        // ============================================
+        document.querySelectorAll('.service-card, .portfolio-item, .testimonial-card, .contact-item').forEach(element => {
+            element.addEventListener('mouseenter', function(e) {
+                const rect = this.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                // Calculate rotation based on mouse position
+                const rotateY = ((x - rect.width / 2) / rect.width) * 10;
+                const rotateX = ((rect.height / 2 - y) / rect.height) * 10;
+                
+                this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
+                this.style.zIndex = '10';
+            });
+            
+            element.addEventListener('mouseleave', function() {
+                this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateZ(0)';
+                this.style.zIndex = '1';
+            });
+        });
+        
+        // ============================================
+        // PERFORMANCE OPTIMIZATION WITH DEBOUNCE
+        // ============================================
+        let scrollTimeout;
+        window.addEventListener('scroll', function() {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(animateOnScroll, 100);
+        });
+        
+        // Lazy load images
+        const images = document.querySelectorAll('img');
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.add('loaded');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+        
+        images.forEach(img => {
+            img.loading = 'lazy';
+            if (!img.src) {
+                imageObserver.observe(img);
+            }
+        });
+        
+        // ============================================
+        // ADDITIONAL CSS ANIMATIONS
+        // ============================================
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes ripple-animation {
+                to {
+                    transform: scale(4);
+                    opacity: 0;
+                }
+            }
+            
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
+            }
+            
+            .notification {
+                font-family: inherit;
+                font-size: var(--font-size-sm);
+                font-weight: 500;
+            }
+            
+            .loaded {
+                animation: fadeIn 0.5s ease-out;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // ============================================
+        // INITIALIZE ON LOAD WITH ENHANCED EFFECTS
+        // ============================================
+        window.addEventListener('DOMContentLoaded', () => {
+            // Initialize animations
+            animateOnScroll();
+            
+            // Set initial modal state with animation
+            setTimeout(() => {
+                modalCategory.value = 'Graphic Design';
+                const event = new Event('change');
+                modalCategory.dispatchEvent(event);
+                
+                setTimeout(() => {
+                    modalService.value = 'Logo Design & Brand Identity';
+                    const serviceEvent = new Event('change');
+                    modalService.dispatchEvent(serviceEvent);
+                }, 300);
+            }, 500);
+            
+            // Add initial animation to hero elements
+            const heroElements = document.querySelectorAll('.hero-text h1, .hero-text .tagline, .payment-notice, .hero-logo');
+            heroElements.forEach((el, index) => {
+                el.style.animation = `slideUp 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${index * 0.2}s both`;
+            });
+            
+            // Initialize 3D effects
+            document.body.classList.add('transform-3d');
+        });
+        
+        // ============================================
+        // MOBILE TOUCH OPTIMIZATIONS
+        // ============================================
+        document.addEventListener('touchstart', function() {}, {passive: true});
+        
+        // Prevent zoom on double tap
+        let lastTouchEnd = 0;
+        document.addEventListener('touchend', function(event) {
+            const now = Date.now();
+            if (now - lastTouchEnd <= 300) {
+                event.preventDefault();
+            }
+            lastTouchEnd = now;
+        }, false);
+        
+        // ============================================
+        // VIEWPORT HEIGHT FIX FOR MOBILE
+        // ============================================
+        function setVH() {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        }
+        
+        setVH();
+        window.addEventListener('resize', setVH);
+        
+        // ============================================
+        // ENHANCED IMAGE LOADING WITH PLACEHOLDERS
+        // ============================================
+        document.querySelectorAll('img').forEach(img => {
+            // Add loading animation
+            if (!img.complete) {
+                img.style.opacity = '0';
+                img.style.transition = 'opacity 0.3s ease';
+                
+                img.addEventListener('load', function() {
+                    this.style.opacity = '1';
+                    this.classList.add('loaded');
+                });
+            } else {
+                img.classList.add('loaded');
+            }
+        });
     </script>
 </body>
 </html>
